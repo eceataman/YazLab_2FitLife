@@ -1,0 +1,32 @@
+﻿@model List<WebApplication1.Models.User>
+
+@{
+    ViewBag.Title = "Admin Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Admin Index</h2>
+
+<table class="table">
+    <tr>
+        <th>User ID</th>
+        <th>User Name</th>
+        <th>User Surname</th>
+        <th>User Email</th>
+        <th>Actions</th> <!-- Add a new column for actions -->
+    </tr>
+
+    @foreach (var user in Model)
+    {
+        <tr>
+            <td>@user.UserId</td>
+            <td>@user.UserName</td>
+            <td>@user.UserSurname</td>
+            <td>@user.UserMail</td>
+            <td>
+                @Html.ActionLink("Edit", "EditUser", new { userId = user.UserId }, new { @class = "btn btn-primary" })
+                <!-- You can add more action links for other actions (delete, view details, etc.) -->
+            </td>
+        </tr>
+    }
+</table>

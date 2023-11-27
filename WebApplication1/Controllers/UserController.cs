@@ -20,7 +20,24 @@ namespace WebApplication1.Controllers
             if (Session["CurrentUser"] != null)
             {
                 User currentUser = (User)Session["CurrentUser"];
-                return View(currentUser);
+
+                // Check if the current user is an admin (userRole=2)
+                if (currentUser.UserRole == 2)
+                {
+                    using (Model1 dbModel = new Model1())
+                    {
+                        // Retrieve users with userRole equal to 1 or 3
+                        List<User> usersToShow = dbModel.Users.Where(u => u.UserRole == 1 || u.UserRole == 3).ToList();
+
+                        // You can pass the list of users to the view
+                        return View("AdminIndex", usersToShow);
+                    }
+                }
+                else
+                {
+                    // For users with roles other than admin, just show their own information
+                    return View(currentUser);
+                }
             }
             else
             {
@@ -28,6 +45,7 @@ namespace WebApplication1.Controllers
                 return RedirectToAction("Login");
             }
         }
+
 
         // Other actions...
 
@@ -48,6 +66,7 @@ namespace WebApplication1.Controllers
             {
                 using (Model1 dbModel = new Model1())
                 {
+                    userModel.UserRole = 1;
                     if (UserPhotoFile != null && UserPhotoFile.ContentLength > 0)
                     {
                         // Resim dosyasını kaydetmek için kullanılacak klasörü belirleyin
@@ -173,5 +192,39 @@ namespace WebApplication1.Controllers
 
             return View(loginModel);
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditUser(User userModel)
+        {
+            if (ModelState.IsValid)
+            {
+                using (Model1 dbModel = new Model1())
+                {
+                    // Retrieve the current user from the database
+                    User currentUser = dbModel.Users.Find(userModel.UserId);
+
+                    if (currentUser != null)
+                    {
+                        // Update user information
+                        currentUser.UserName = userModel.UserName;
+                        currentUser.UserSurname = userModel.UserSurname;
+                        // Update other properties as needed
+
+                        // Save changes to the database
+                        dbModel.Entry(currentUser).State = EntityState.Modified;
+                        dbModel.SaveChanges();
+
+                        ViewBag.SuccessMessage = "User information updated successfully";
+                    }
+                    else
+                    {
+                        ViewBag.ErrorMessage = "User not found";
+                    }
+                }
+            }
+
+            return View("EditUser", userModel);
+        }
+
     }
 }
