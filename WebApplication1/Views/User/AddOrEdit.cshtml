@@ -1,0 +1,166 @@
+﻿@model WebApplication1.Models.User
+@{
+    ViewBag.Title = "AddOrEdit";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add or Edit User</title>
+    <style>
+        * {
+            margin: 10;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            background: rgb(130, 106, 251);
+            font-family: fantasy;
+        }
+
+        .container {
+            position: relative;
+            background: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+            .container header {
+                font-size: 35px;
+                color: #333;
+                font-weight: 500;
+                text-align: center;
+                margin-bottom: 20px;
+            }
+
+        .form .input-box {
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .input-box label {
+            color: #333;
+        }
+
+        .form :where(.input-box input, .select-box) {
+            position: relative;
+            height: 50px;
+            width: 100%;
+            outline: none;
+            font-size: 10px;
+            color: #707070;
+            margin-top: 8px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 0 15px;
+        }
+
+        .input-box input:focus {
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        .form .column {
+            display: flex;
+            column-gap: 15px;
+        }
+
+        .form .gender-box {
+            margin-top: 20px;
+        }
+
+        .gender-box h3 {
+            color: #333;
+            font-size: 1rem;
+            font-weight: 400;
+            margin-bottom: 8px;
+        }
+
+        .form :where(.gender-option, .gender) {
+            display: flex;
+            align-items: center;
+            column-gap: 50px;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+<body>
+    <section class="container">
+        <header>KAYIT OL</header>
+
+        @using (Html.BeginForm("SaveC", "User", FormMethod.Post, new { @class = "form", enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="input-box">
+                @Html.LabelFor(model => model.UserName)
+                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { placeholder = "AD", @required = "required" } })
+                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="input-box">
+                @Html.LabelFor(model => model.UserSurname)
+                @Html.EditorFor(model => model.UserSurname, new { htmlAttributes = new { placeholder = "SOYAD", @required = "required" } })
+                @Html.ValidationMessageFor(model => model.UserSurname, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="input-box">
+                @Html.LabelFor(model => model.UserMail)
+                @Html.EditorFor(model => model.UserMail, new { htmlAttributes = new { placeholder = "EMAİL", @required = "required" } })
+                @Html.ValidationMessageFor(model => model.UserMail, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="input-box">
+                @Html.LabelFor(model => model.UserPass)
+                @Html.PasswordFor(model => model.UserPass, new { htmlAttributes = new { placeholder = "ŞİFRE", @required = "required" } })
+                @Html.ValidationMessageFor(model => model.UserPass, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="column">
+                <div class="input-box">
+                    @Html.LabelFor(model => model.UserPhone)
+                    @Html.EditorFor(model => model.UserPhone, new { htmlAttributes = new { type = "number", placeholder = "TELEFON", @required = "required" } })
+                    @Html.ValidationMessageFor(model => model.UserPhone, "", new { @class = "text-danger" })
+                </div>
+                <div class="input-box">
+                    @Html.LabelFor(model => model.UserBirth)
+                    @Html.EditorFor(model => model.UserBirth, new { htmlAttributes = new { type = "date", placeholder = "DOĞUM TARİHİ", @required = "required" } })
+                    @Html.ValidationMessageFor(model => model.UserBirth, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="gender-box">
+                <h3>Cinsiyet</h3>
+                <div class="gender-option">
+                    <div class="gender">
+                        @Html.RadioButtonFor(model => model.UserGender, "Male", new { id = "check-male", @checked = "checked" })
+                        @Html.LabelFor(model => model.UserGender, "Erkek")
+                    </div>
+                    <div class="gender">
+                        @Html.RadioButtonFor(model => model.UserGender, "Female", new { id = "check-female" })
+                        @Html.LabelFor(model => model.UserGender, "Kadın")
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.UserPhoto, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input type="file" name="UserPhotoFile" id="UserPhotoFile" />
+                    @Html.ValidationMessageFor(model => model.UserPhoto, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <button type="submit">Kayıt Ol</button>
+        }
+    </section>
+</body>
+</html>

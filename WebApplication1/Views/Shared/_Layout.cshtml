@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - FitLife</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <style>
+        .header {
+            background: linear-gradient(-135deg, #c850c0, #4158d0);
+            text-align: left;
+            font-family: fantasy;
+            padding: 5px;
+            font-size: 80px; /* İhtiyaca göre font boyutunu ayarlayın */
+            margin-top: 0;
+        }
+
+
+        body {
+            margin: 0;
+        }
+
+        /* Üst gezinme çubuğunu stilize et */
+        .topnav {
+            font-family: fantasy;
+            overflow: hidden;
+            background-color: #333;
+            text-align: right; /* Sağa hizalama */
+        }
+
+            /* Üst gezinme linklerini stilize et */
+            .topnav a {
+                float: right; /* Sağa yaslanacak */
+                display: block;
+                color: #f2f2f2;
+                text-align: center;
+                padding: 15px 20px;
+                text-decoration: none;
+            }
+
+                /* Üzerine gelindiğinde renk değiştir */
+                .topnav a:hover {
+                    background-color:black;
+                    color: linear-gradient(-135deg, #c850c0, #4158d0);
+                }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+       FITLIFE
+    </div>
+
+    <!-- Aktif Edilen Top Navigation Bar -->
+    <div class="topnav">
+        <div style="float: left;">
+            @Html.ActionLink("HAKKINDA", "About", "Home")
+            @Html.ActionLink("ANASAYFA", "Index", "Home")
+
+            </div>
+        <div style="float: right;">
+            <a href="@Url.Action("Login", "User")">GİRİŞ YAP</a>
+            <a href="@Url.Action("AddOrEdit", "User")">KAYIT OL</a>
+        </div>
+    </div>
+
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - FitLife</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+
+</html>
