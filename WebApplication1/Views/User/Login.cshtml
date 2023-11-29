@@ -173,7 +173,9 @@
             <div class="field">
                 @Html.EditorFor(model => model.UserMail, new { htmlAttributes = new { @type = "text", @required = "required" } })
                 @Html.LabelFor(model => model.UserMail, "E-posta Adresi")
-                @Html.ValidationMessageFor(model => model.UserMail, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.UserMail, 
+               
+               "", new { @class = "text-danger" })
             </div>
 
             <div class="field">

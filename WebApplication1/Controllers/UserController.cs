@@ -194,7 +194,28 @@ namespace WebApplication1.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditUser(User userModel)
+        public ActionResult EditUser(int userId)
+        {
+            using (Model1 dbModel = new Model1())
+            {
+                // Retrieve the user from the database based on the userId
+                User user = dbModel.Users.Find(userId);
+
+                if (user != null)
+                {
+                    return View(user);
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = "User not found";
+                    return RedirectToAction("AdminIndex");
+                }
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditUser(User userModel, HttpPostedFileBase UserPhotoFile)
         {
             if (ModelState.IsValid)
             {
@@ -210,11 +231,33 @@ namespace WebApplication1.Controllers
                         currentUser.UserSurname = userModel.UserSurname;
                         // Update other properties as needed
 
+                        // Check if there is a UserPhotoFile in the request (i.e., the user wants to update the profile picture)
+                        if (UserPhotoFile != null && UserPhotoFile.ContentLength > 0)
+                        {
+                            // Same photo update logic as in your SaveC action
+                            string uploadFolderPath = Server.MapPath("~/Uploads");
+
+                            if (!Directory.Exists(uploadFolderPath))
+                            {
+                                Directory.CreateDirectory(uploadFolderPath);
+                            }
+
+                            string fileName = Path.GetFileName(UserPhotoFile.FileName);
+                            string filePath = Path.Combine(uploadFolderPath, fileName);
+
+                            UserPhotoFile.SaveAs(filePath);
+
+                            currentUser.UserPhoto = "~/Uploads/" + fileName;
+                        }
+
                         // Save changes to the database
                         dbModel.Entry(currentUser).State = EntityState.Modified;
                         dbModel.SaveChanges();
 
                         ViewBag.SuccessMessage = "User information updated successfully";
+
+                        // Redirect to the AdminIndex action after successful update
+                        return RedirectToAction("AdminIndex");
                     }
                     else
                     {
@@ -223,8 +266,11 @@ namespace WebApplication1.Controllers
                 }
             }
 
-            return View("EditUser", userModel);
+            // If the ModelState is not valid, return to the EditUser view with the user model
+            return View(userModel);
         }
+       
+
 
     }
 }
