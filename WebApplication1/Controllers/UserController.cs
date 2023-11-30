@@ -193,8 +193,40 @@ namespace WebApplication1.Controllers
             return View(loginModel);
         }
 
+        [HttpPost]
+        public ActionResult SaveTarget(string goal)
+        {
+            // Check if the user is logged in
+            if (Session["CurrentUser"] != null)
+            {
+                // Get the current user from the session
+                User currentUser = (User)Session["CurrentUser"];
 
+                using (Model3 dbModel = new Model3())
+                {
+                    // Create a new instance of your Target model
+                    Target target = new Target
+                    {
+                        UserId = currentUser.UserId,
+                        Goal = goal
+                    };
 
+                    // Add the new target to the Targets table
+                    dbModel.Targets.Add(target);
+                    dbModel.SaveChanges();
+
+                    ViewBag.SuccessMessage = "Target saved successfully";
+                }
+
+                // Redirect to the Index action
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                // Redirect to login if the user is not logged in
+                return RedirectToAction("Login");
+            }
+        }
 
     }
 }

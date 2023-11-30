@@ -137,11 +137,14 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Coach.cs" />
+    <Compile Include="Models\Goal.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\LoginViewModel2.cs" />
     <Compile Include="Models\Model1.cs" />
     <Compile Include="Models\Model2.cs" />
     <Compile Include="Models\Model3.cs" />
+    <Compile Include="Models\Model4.cs" />
+    <Compile Include="Models\Progress.cs" />
     <Compile Include="Models\Target.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

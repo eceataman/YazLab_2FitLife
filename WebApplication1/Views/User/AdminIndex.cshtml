@@ -75,30 +75,35 @@
                             <th>Cinsiyet</th>
                             <th>Telefon</th>
                             <th>Fotoğraf</th>
-                            <th>Actions</th> <!-- Add a new column for actions -->
+                            <th>Actions</th>
+                            <th>Devre dışı</th>
+                            <!-- Add a new column for actions -->
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var user in Model.Where(u => u.UserRole == 3))
                         {
-                            <tr>
-                                <td>@user.UserId</td>
-                                <td>@user.UserName</td>
-                                <td>@user.UserSurname</td>
-                                <td>@user.UserPass</td>
-                                <td>@user.UserBirth</td>
-                                <td>@user.UserMail</td>
-                                <td>@user.UserGender</td>
-                                <td>@user.UserPhone</td>
-                                <td>@user.UserPhoto</td>
-                                <td>
-                                    <!-- Add an Edit button -->
-                                    <a href="@Url.Action("Edit", "User", new { userId = user.UserId })">Edit</a>
+                        <tr>
+                            <td>@user.UserId</td>
+                            <td>@user.UserName</td>
+                            <td>@user.UserSurname</td>
+                            <td>@user.UserPass</td>
+                            <td>@user.UserBirth</td>
+                            <td>@user.UserMail</td>
+                            <td>@user.UserGender</td>
+                            <td>@user.UserPhone</td>
+                            <td>@user.UserPhoto</td>
+                            <td>
+                                <!-- Add an Edit button -->
+                                <a href="@Url.Action("Edit", "User", new { userId = user.UserId })">Edit</a>
 
-                                    
 
-                                </td>
-                            </tr>
+                            </td>
+                            <td>
+                                <a href="@Url.Action("Disable", "User", new { userId = user.UserId })">Disable</a>
+                            </td>
+                            
+                        </tr>
                         }
                     </tbody>
                 </table>

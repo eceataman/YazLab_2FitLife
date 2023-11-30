@@ -1,105 +1,111 @@
 ﻿@model WebApplication1.Models.User
 
-@{ ViewBag.Title = "Index"; }
+@{
+    ViewBag.Title = "Index";
+}
 
 
 <h2>User Profile</h2>
 
 @if (Model != null)
 {
-<div>
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.UserName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.UserName)
-        </dd>
-    </dl>
-</div>
-                <div>
-                    <dl class="dl-horizontal">
-                        <dt>
-                            @Html.DisplayNameFor(model => model.UserSurname)
-                        </dt>
-                        <dd>
-                            @Html.DisplayFor(model => model.UserSurname)
-                        </dd>
-                    </dl>
-                </div>
-                                <div>
-                                    <dl class="dl-horizontal">
-                                        <dt>
-                                            @Html.DisplayNameFor(model => model.UserPhone)
-                                        </dt>
-                                        <dd>
-                                            @Html.DisplayFor(model => model.UserPhone)
-                                        </dd>
-                                    </dl>
-                                </div>
-                                                <div>
-                                                    <dl class="dl-horizontal">
-                                                        <dt>
-                                                            @Html.DisplayNameFor(model => model.UserMail)
-                                                        </dt>
-                                                        <dd>
-                                                            @Html.DisplayFor(model => model.UserMail)
-                                                        </dd>
-                                                    </dl>
-                                                </div>
-                                                                <div>
-                                                                    <dl class="dl-horizontal">
-                                                                        <dt>
-                                                                            @Html.DisplayNameFor(model => model.UserGender)
-                                                                        </dt>
-                                                                        <dd>
-                                                                            @Html.DisplayFor(model => model.UserGender)
-                                                                        </dd>
-                                                                    </dl>
-                                                                </div>
-                                                                                <div>
-                                                                                    <dl class="dl-horizontal">
-                                                                                        <dt>
-                                                                                            User Photo
-                                                                                        </dt>
-                                                                                        <dd>
-                                                                                            @if (!string.IsNullOrEmpty(Model.UserPhoto))
-                                                                                            {
-                                                                            <img src="@Url.Content(Model.UserPhoto)" alt="User Photo" /> }
-                                                                                            else
-                                                                                            {
-                                                                            <p>No photo available</p>                }
-                                                                                        </dd>
-                                                                                    </dl>
-                                                                                </div>
+    <div>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.UserName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.UserName)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.UserSurname)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.UserSurname)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.UserPhone)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.UserPhone)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.UserMail)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.UserMail)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.UserGender)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.UserGender)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <dl class="dl-horizontal">
+            <dt>
+                User Photo
+            </dt>
+            <dd>
+                @if (!string.IsNullOrEmpty(Model.UserPhoto))
+                {
+                    <img src="@Url.Content(Model.UserPhoto)" alt="User Photo" />
+                }
+                else
+                {
+                    <p>No photo available</p>
+                }
+            </dd>
+        </dl>
+    </div>
 
-                                                                                                <div>
-                                                                                                    <dl class="dl-horizontal">
-                                                                                                        <dt>
-                                                                                                            @Html.DisplayNameFor(model => model.UserBirth)
-                                                                                                        </dt>
-                                                                                                        <dd>
-                                                                                                            @Html.DisplayFor(model => model.UserBirth)
-                                                                                                        </dd>
-                                                                                                    </dl>
-                                                                                                </div>
+    <div>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.UserBirth)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.UserBirth)
+            </dd>
+        </dl>
+    </div>
 
-                                                                                                                <p>
-                                                                                                                    @Html.ActionLink("Edit Profile", "Edit", "User")
-                                                                                                                </p>
-
-                                                                                                                                <div>
-                                                                                                                                    <form action="@Url.Action("SaveTarget", "User")" method="post">
-                                                                                                                                        <label for="goal">Select Your Goal:</label>
-                                                                                                                                        <select name="goal" id="goal">
-                                                                                                                                            <option value="WeightGain">Weight Gain</option>
-                                                                                                                                            <option value="WeightLoss">Weight Loss</option>
-                                                                                                                                            <option value="WeightMaintenance">Weight Maintenance</option>
-                                                                                                                                            <option value="MuscleGain">Muscle Gain</option>
-                                                                                                                                        </select>
-                                                                                                                                        <input type="submit" value="Save Goal" />
-                                                                                                                                    </form>
-                                                                                                                                </div> }
-                                                                                                                                            else
-                                                                                                                                            {
-                                                                                                                                <p>User not logged in. Please log in to view your profile.</p>}
+    <p>
+        @Html.ActionLink("Edit Profile", "Edit", "User")
+    </p>
+    
+    <div>
+        <form action="@Url.Action("SaveTarget", "User")" method="post">
+            <label for="goal">Select Your Goal:</label>
+            <select name="goal" id="goal">
+                <option value="Kilo Aldırma">Kilo Alma</option>
+                <option value="Kilo Verdirme">Kilo Verme</option>
+                <option value="Kilo Koruma">Kilo Koruma</option>
+                <option value="Kas Kazanma">Kas Kazanma</option>
+            </select>
+            <input type="submit" value="Hedef Kaydet" />
+        </form>
+    </div>
+}
+else
+{
+    <p>User not logged in. Please log in to view your profile.</p>
+}
