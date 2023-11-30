@@ -130,13 +130,19 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CoachController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Coach.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
+    <Compile Include="Models\LoginViewModel2.cs" />
     <Compile Include="Models\Model1.cs" />
+    <Compile Include="Models\Model2.cs" />
+    <Compile Include="Models\Model3.cs" />
+    <Compile Include="Models\Target.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -150,13 +156,22 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="img\1.jpg" />
+    <Content Include="img\admin.jpg" />
+    <Content Include="img\fitnes2.jpg" />
+    <Content Include="img\fitness.jpg" />
+    <Content Include="img\fitt..jpg" />
     <Content Include="img\fitt1.jpg" />
     <Content Include="img\fitt2.jpg" />
     <Content Include="img\fitt3.jpg" />
+    <Content Include="img\fitt4.jpg" />
     <Content Include="img\fitt5.jpg" />
     <Content Include="img\generaluser.png" />
-    <Content Include="img\fitt4.jpg" />
+    <Content Include="img\images.jfif" />
+    <Content Include="img\login.jpg" />
+    <Content Include="img\login1.jpg" />
+    <Content Include="img\register.jpg" />
+    <Content Include="img\run.jpg" />
+    <Content Include="img\xxx.jpg" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -180,6 +195,7 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="img\shutterstock_727673917-scaled.webp" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -291,7 +307,9 @@
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\User\AdminIndex.cshtml" />
-    <Content Include="Views\User\EditUser.cshtml" />
+    <Content Include="Views\Coach\Login.cshtml" />
+    <Content Include="Views\Coach\Profile.cshtml" />
+    <Content Include="Views\Coach\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -94,6 +94,9 @@
                                 <td>
                                     <!-- Add an Edit button -->
                                     <a href="@Url.Action("Edit", "User", new { userId = user.UserId })">Edit</a>
+
+                                    
+
                                 </td>
                             </tr>
                         }
@@ -102,6 +105,8 @@
                 <p>
                     <!-- Add a button to add a new coach -->
                     <a href="@Url.Action("AddOrEdit", "User")" class="btn btn-success">Add New Coach</a>
+                  
+
                 </p>
             }
             else
