@@ -6,7 +6,7 @@ using System.Web;
 
 namespace WebApplication1.Models
 {
-    public class LoginViewModel
+    public class LoginDto
     {
         [Required]
         [EmailAddress]
@@ -15,6 +15,7 @@ namespace WebApplication1.Models
         [Required]
         [DataType(DataType.Password)]
         public string UserPass { get; set; }
+        public string SecurityQuestion { get; set; }
 
     }
 }

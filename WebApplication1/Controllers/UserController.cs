@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using WebApplication1.Models;
@@ -60,49 +63,109 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
 
 
+        //public ActionResult SaveC(User userModel, HttpPostedFileBase UserPhotoFile)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        using (Model1 dbModel = new Model1())
+        //        {
+        //            userModel.UserRole = 1;
+        //            if (UserPhotoFile != null && UserPhotoFile.ContentLength > 0)
+        //            {
+        //                // Resim dosyasını kaydetmek için kullanılacak klasörü belirleyin
+        //                string uploadFolderPath = Server.MapPath("~/Uploads");
+
+        //                // Eğer klasör yoksa, oluşturun
+        //                if (!Directory.Exists(uploadFolderPath))
+        //                {
+        //                    Directory.CreateDirectory(uploadFolderPath);
+        //                }
+
+        //                // Resim dosyasını kaydetmek için dosya adını belirleyin
+        //                string fileName = Path.GetFileName(UserPhotoFile.FileName);
+
+        //                // Dosya yolunu belirleyin
+        //                string filePath = Path.Combine(uploadFolderPath, fileName);
+
+        //                // Resim dosyasını kaydedin
+        //                UserPhotoFile.SaveAs(filePath);
+
+        //                // UserModel içindeki UserPhoto özelliğini güncelleyin
+        //                userModel.UserPhoto = "~/Uploads/" + fileName; // Dosya yolunu UserModel'e ekleyin
+        //            }
+
+        //            // Yeni bir kullanıcı ekleniyor
+        //            dbModel.Users.Add(userModel);
+        //            dbModel.SaveChanges();
+
+        //            ViewBag.SuccessMessage = "User added successfully";
+        //        }
+        //        ModelState.Clear();
+        //    }
+
+        //    return View("AddOrEdit", new User());
+        //}
         public ActionResult SaveC(User userModel, HttpPostedFileBase UserPhotoFile)
         {
             if (ModelState.IsValid)
             {
                 using (Model1 dbModel = new Model1())
                 {
-                    userModel.UserRole = 1;
-                    if (UserPhotoFile != null && UserPhotoFile.ContentLength > 0)
+                    try
                     {
-                        // Resim dosyasını kaydetmek için kullanılacak klasörü belirleyin
-                        string uploadFolderPath = Server.MapPath("~/Uploads");
+                        userModel.UserPass = HashPassword(userModel.UserPass);
 
-                        // Eğer klasör yoksa, oluşturun
-                        if (!Directory.Exists(uploadFolderPath))
+                        userModel.UserRole = 1;
+                        if (UserPhotoFile != null && UserPhotoFile.ContentLength > 0)
                         {
-                            Directory.CreateDirectory(uploadFolderPath);
+                            // ... Resim dosyasını kaydetme işlemleri (önceki kodun devamı) ...
                         }
 
-                        // Resim dosyasını kaydetmek için dosya adını belirleyin
-                        string fileName = Path.GetFileName(UserPhotoFile.FileName);
+                        // Yeni bir kullanıcı ekleniyor
+                        dbModel.Users.Add(userModel);
+                        dbModel.SaveChanges();
 
-                        // Dosya yolunu belirleyin
-                        string filePath = Path.Combine(uploadFolderPath, fileName);
-
-                        // Resim dosyasını kaydedin
-                        UserPhotoFile.SaveAs(filePath);
-
-                        // UserModel içindeki UserPhoto özelliğini güncelleyin
-                        userModel.UserPhoto = "~/Uploads/" + fileName; // Dosya yolunu UserModel'e ekleyin
+                        ViewBag.SuccessMessage = "User added successfully";
+                        ModelState.Clear();
                     }
-
-                    // Yeni bir kullanıcı ekleniyor
-                    dbModel.Users.Add(userModel);
-                    dbModel.SaveChanges();
-
-                    ViewBag.SuccessMessage = "User added successfully";
+              
+               
+                    catch (DbEntityValidationException ex)
+                    {
+                        foreach (var entityValidationErrors in ex.EntityValidationErrors)
+                        {
+                            foreach (var validationError in entityValidationErrors.ValidationErrors)
+                            {
+                                Console.WriteLine($"Property: {validationError.PropertyName}, Error: {validationError.ErrorMessage}");
+                            }
+                        }
+                    }
+                    // Parolayı hash'le
                 }
-                ModelState.Clear();
             }
 
             return View("AddOrEdit", new User());
         }
-        public ActionResult Edit()
+
+        // Parolayı hash'leyen yardımcı fonksiyon
+        private string HashPassword(string password)
+        {
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                // Parolayı byte dizisine çevir
+                byte[] hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+
+                // Byte dizisini string olarak dönüştür
+                StringBuilder stringBuilder = new StringBuilder();
+                for (int i = 0; i < hashedBytes.Length; i++)
+                {
+                    stringBuilder.Append(hashedBytes[i].ToString("x2"));
+                }
+
+                return stringBuilder.ToString();
+            }
+        }
+            public ActionResult Edit()
         {
             // Check if the user is logged in
             if (Session["CurrentUser"] != null)
@@ -119,7 +182,7 @@ namespace WebApplication1.Controllers
         }
         public ActionResult Login()
         {
-            LoginViewModel loginModel = new LoginViewModel();
+            LoginDto loginModel = new LoginDto();
             return View(loginModel);
         }
         [HttpPost]
@@ -166,7 +229,7 @@ namespace WebApplication1.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(LoginViewModel loginModel)
+        public ActionResult Login(LoginDto loginModel)
         {
             if (ModelState.IsValid)
             {
@@ -174,14 +237,14 @@ namespace WebApplication1.Controllers
                 {
                     var user = dbModel.Users.FirstOrDefault(u => u.UserMail == loginModel.UserMail);
 
-                    if (user != null && user.UserPass == loginModel.UserPass)
+                    if (user != null && user.UserPass == HashPassword(loginModel.UserPass))
                     {
                         // Set the CurrentUser property to the logged-in user
                         Session["CurrentUser"] = user;
 
                         ViewBag.SuccessMessage = "Login successful";
                         return RedirectToAction("Index", "User");
-
+                       
                     }
                     else
                     {
@@ -227,6 +290,46 @@ namespace WebApplication1.Controllers
                 return RedirectToAction("Login");
             }
         }
+
+        [HttpPost]
+        public ActionResult ForgotPassword(User userModel)
+        {
+            if (ModelState.IsValid)
+            {
+                using (Model1 dbModel = new Model1())
+                {
+                    var user = dbModel.Users.FirstOrDefault(u => u.UserMail == userModel.UserMail && u.SecurityQuestion == userModel.SecurityQuestion);
+
+                    if (user != null)
+                    {
+                        // Set the new password for the user
+                        user.UserPass = HashPassword(userModel.UserPass);
+
+                        // Check if the entity is not already in a modified state
+                        if (dbModel.Entry(user).State == EntityState.Detached)
+                        {
+                            // If detached, attach the entity and mark it as modified
+                            dbModel.Users.Attach(user);
+                            dbModel.Entry(user).State = EntityState.Modified;
+                        }
+
+                        // Save changes to the database
+                        dbModel.SaveChanges();
+
+                        Session["CurrentUser"] = user;
+
+                        ViewBag.SuccessMessage = "Password reset successful";
+                    }
+                    else
+                    {
+                        // Handle the case when the user is not found
+                    }
+                }
+            }
+
+            return RedirectToAction("Login");
+        }
+
 
     }
 }

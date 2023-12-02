@@ -17,7 +17,7 @@ namespace WebApplication1.Models
         [StringLength(50)]
         public string UserSurname { get; set; }
 
-        [StringLength(50)]
+        [StringLength(250)]
         public string UserPass { get; set; }
 
         [Column(TypeName = "date")]
@@ -36,5 +36,8 @@ namespace WebApplication1.Models
         public string UserPhoto { get; set; }
 
         public int? UserRole { get; set; }
+
+        [StringLength(50)]
+        public string SecurityQuestion { get; set; }
     }
 }

@@ -8,7 +8,7 @@ namespace WebApplication1.Models
     public partial class Model1 : DbContext
     {
         public Model1()
-            : base("name=Model12")
+            : base("name=Model15")
         {
         }
 
@@ -42,6 +42,10 @@ namespace WebApplication1.Models
 
             modelBuilder.Entity<User>()
                 .Property(e => e.UserPhoto)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<User>()
+                .Property(e => e.SecurityQuestion)
                 .IsUnicode(false);
         }
     }

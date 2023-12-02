@@ -1,4 +1,4 @@
-﻿@model WebApplication1.Models.LoginViewModel
+﻿@model WebApplication1.Models.LoginDto
 
 @{
     ViewBag.Title = "Login";
@@ -173,8 +173,8 @@
             <div class="field">
                 @Html.EditorFor(model => model.UserMail, new { htmlAttributes = new { @type = "text", @required = "required" } })
                 @Html.LabelFor(model => model.UserMail, "E-posta Adresi")
-                @Html.ValidationMessageFor(model => model.UserMail, 
-               
+                @Html.ValidationMessageFor(model => model.UserMail,
+
                "", new { @class = "text-danger" })
             </div>
 
@@ -194,6 +194,57 @@
         <div class="signup-link">
             Üye değil misiniz? <a href="@Url.Action("AddOrEdit", "User")">Şimdi Kaydolun</a>
         </div>
-    </div>
-</body>
-</html>
+
+        <div class="signup-link">
+            Şifremi unuttum <a href="javascript:void(0);" onclick="openModal()">Şifremi Sıfırla</a>
+        </div>
+        <!-- ... (previous HTML code) ... -->
+
+        <div id="forgotPasswordModal" class="modal">
+            <form action="@Url.Action("ForgotPassword", "User")" method="post">
+           
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal()">&times;</span>
+                    <h2>Şifremi Unuttum</h2>
+                    <div class="field">
+                        @Html.EditorFor(model => model.UserMail, new { htmlAttributes = new { @type = "text", @required = "required" } })
+                        @Html.LabelFor(model => model.UserMail, "Mail")
+                        @Html.ValidationMessageFor(model => model.UserMail, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="field">
+                        @Html.EditorFor(model => model.SecurityQuestion, new { htmlAttributes = new { @type = "text", @required = "required" } })
+                        @Html.LabelFor(model => model.SecurityQuestion, "Güvenlik Sorusu")
+                        @Html.ValidationMessageFor(model => model.SecurityQuestion, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="field">
+                        @Html.PasswordFor(model => model.UserPass, new { htmlAttributes = new { @type = "password", @required = "required" } })
+                        @Html.LabelFor(model => model.UserPass, "Yeni Şifre")
+                        @Html.ValidationMessageFor(model => model.UserPass, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="field">
+                        <input type="submit" value="Şifremi Sıfırla">
+                    </div>
+                </div>
+                </form>
+        </div>
+
+        <script>
+            function openModal() {
+                document.getElementById('forgotPasswordModal').style.display = 'block';
+            }
+
+            function closeModal() {
+                document.getElementById('forgotPasswordModal').style.display = 'none';
+            }
+
+            // Close the modal if the user clicks outside of it
+            window.onclick = function (event) {
+                var modal = document.getElementById('forgotPasswordModal');
+                if (event.target == modal) {
+                    modal.style.display = 'none';
+                }
+            }
+        </script>
+
+        <!-- ... (remaining HTML code) ... -->
