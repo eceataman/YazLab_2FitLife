@@ -39,8 +39,18 @@ namespace WebApplication1.Controllers
                 else
                 {
                     // For users with roles other than admin, just show their own information
+
+                    using (Model3 dbModel = new Model3())
+                    {
+                        List<Goal> goalsToShow = dbModel.Goal.ToList();
+                        SelectList goalList = new SelectList(goalsToShow, "TargetId", "TargetName");
+                        ViewBag.GoalList = goalList;
+                    }
+
                     return View(currentUser);
                 }
+
+
             }
             else
             {
@@ -63,48 +73,7 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
 
 
-        //public ActionResult SaveC(User userModel, HttpPostedFileBase UserPhotoFile)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        using (Model1 dbModel = new Model1())
-        //        {
-        //            userModel.UserRole = 1;
-        //            if (UserPhotoFile != null && UserPhotoFile.ContentLength > 0)
-        //            {
-        //                // Resim dosyasını kaydetmek için kullanılacak klasörü belirleyin
-        //                string uploadFolderPath = Server.MapPath("~/Uploads");
-
-        //                // Eğer klasör yoksa, oluşturun
-        //                if (!Directory.Exists(uploadFolderPath))
-        //                {
-        //                    Directory.CreateDirectory(uploadFolderPath);
-        //                }
-
-        //                // Resim dosyasını kaydetmek için dosya adını belirleyin
-        //                string fileName = Path.GetFileName(UserPhotoFile.FileName);
-
-        //                // Dosya yolunu belirleyin
-        //                string filePath = Path.Combine(uploadFolderPath, fileName);
-
-        //                // Resim dosyasını kaydedin
-        //                UserPhotoFile.SaveAs(filePath);
-
-        //                // UserModel içindeki UserPhoto özelliğini güncelleyin
-        //                userModel.UserPhoto = "~/Uploads/" + fileName; // Dosya yolunu UserModel'e ekleyin
-        //            }
-
-        //            // Yeni bir kullanıcı ekleniyor
-        //            dbModel.Users.Add(userModel);
-        //            dbModel.SaveChanges();
-
-        //            ViewBag.SuccessMessage = "User added successfully";
-        //        }
-        //        ModelState.Clear();
-        //    }
-
-        //    return View("AddOrEdit", new User());
-        //}
+        
         public ActionResult SaveC(User userModel, HttpPostedFileBase UserPhotoFile)
         {
             if (ModelState.IsValid)
@@ -116,6 +85,7 @@ namespace WebApplication1.Controllers
                         userModel.UserPass = HashPassword(userModel.UserPass);
 
                         userModel.UserRole = 1;
+                        userModel.RecordStatus = 1;
                         if (UserPhotoFile != null && UserPhotoFile.ContentLength > 0)
                         {
                             // ... Resim dosyasını kaydetme işlemleri (önceki kodun devamı) ...
@@ -257,7 +227,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        public ActionResult SaveTarget(string goal)
+        public ActionResult SaveTarget(int goal)
         {
             // Check if the user is logged in
             if (Session["CurrentUser"] != null)
@@ -265,21 +235,33 @@ namespace WebApplication1.Controllers
                 // Get the current user from the session
                 User currentUser = (User)Session["CurrentUser"];
 
-                using (Model3 dbModel = new Model3())
+                using (Model1 dbModel = new Model1())
                 {
-                    // Create a new instance of your Target model
-                    Target target = new Target
+
+                    var user = dbModel.Users.FirstOrDefault(u => u.UserId == currentUser.UserId );
+
+                    user.TargetId = goal;
+                    
+                    int affectedRows=dbModel.SaveChanges();
+
+                    if (affectedRows > 0)
                     {
-                        UserId = currentUser.UserId,
-                        Goal = goal
-                    };
 
-                    // Add the new target to the Targets table
-                    dbModel.Targets.Add(target);
-                    dbModel.SaveChanges();
+                                
+                            var coaches =    dbModel.Coaches.FirstOrDefault(x=>x.TargetId==goal && x.CoachQuota>0 );
 
-                    ViewBag.SuccessMessage = "Target saved successfully";
+                        coaches.CoachQuota--;
+                        user.CoachId = coaches.CoachId;
+
+                        dbModel.SaveChanges();
+
+
+                    }
+
+
                 }
+
+
 
                 // Redirect to the Index action
                 return RedirectToAction("Index");
@@ -328,6 +310,48 @@ namespace WebApplication1.Controllers
             }
 
             return RedirectToAction("Login");
+        }
+        public ActionResult Disable(int userId)
+        {
+            using (Model1 dbModel = new Model1())
+            {
+                var user = dbModel.Users.Find(userId);
+
+                if (user != null)
+                {
+                    user.RecordStatus = 0;
+                    dbModel.SaveChanges();
+
+                    ViewBag.SuccessMessage = "User disabled successfully";
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = "User not found";
+                }
+            }
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Enable(int userId)
+        {
+            using (Model1 dbModel = new Model1())
+            {
+                var user = dbModel.Users.Find(userId);
+
+                if (user != null)
+                {
+                    user.RecordStatus = 1;
+                    dbModel.SaveChanges();
+
+                    ViewBag.SuccessMessage = "User enabled successfully";
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = "User not found";
+                }
+            }
+
+            return RedirectToAction("Index");
         }
 
 

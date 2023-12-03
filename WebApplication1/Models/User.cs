@@ -39,5 +39,11 @@ namespace WebApplication1.Models
 
         [StringLength(50)]
         public string SecurityQuestion { get; set; }
+
+        public int? RecordStatus { get; set; }
+
+        public int? TargetId { get; set; }
+
+        public int? CoachId { get; set; }
     }
 }

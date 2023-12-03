@@ -94,13 +94,8 @@
     
     <div>
         <form action="@Url.Action("SaveTarget", "User")" method="post">
-            <label for="goal">Select Your Goal:</label>
-            <select name="goal" id="goal">
-                <option value="Kilo Aldırma">Kilo Alma</option>
-                <option value="Kilo Verdirme">Kilo Verme</option>
-                <option value="Kilo Koruma">Kilo Koruma</option>
-                <option value="Kas Kazanma">Kas Kazanma</option>
-            </select>
+
+             @Html.DropDownList("goal", ViewBag.GoalList as SelectList, "Select a Goal", new { @class = "form-control" })
             <input type="submit" value="Hedef Kaydet" />
         </form>
     </div>

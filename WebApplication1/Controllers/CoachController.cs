@@ -28,7 +28,7 @@ namespace WebApplication1.Controllers
         {
             if (ModelState.IsValid)
             {
-                using (Model2 dbModel = new Model2())
+                using (Model1 dbModel = new Model1())
                 {
                     var user = dbModel.Coaches.FirstOrDefault(u => u.CoachMail == loginModel.CoachMail);
 
@@ -80,7 +80,7 @@ namespace WebApplication1.Controllers
 
             if (ModelState.IsValid)
             {
-                using (Model2 dbModel = new Model2())
+                using (Model1 dbModel = new Model1())
                 {
                     // Update the coach's information in the database
                     currentCoach.CoachName = updatedCoach.CoachName;

@@ -141,11 +141,7 @@
     <Compile Include="Models\LoginDto.cs" />
     <Compile Include="Models\LoginViewModel2.cs" />
     <Compile Include="Models\Model1.cs" />
-    <Compile Include="Models\Model2.cs" />
     <Compile Include="Models\Model3.cs" />
-    <Compile Include="Models\Model4.cs" />
-    <Compile Include="Models\Progress.cs" />
-    <Compile Include="Models\Target.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

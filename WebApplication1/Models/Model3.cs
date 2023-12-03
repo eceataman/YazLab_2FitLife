@@ -8,16 +8,16 @@ namespace WebApplication1.Models
     public partial class Model3 : DbContext
     {
         public Model3()
-            : base("name=Model3")
+            : base("name=Model31")
         {
         }
 
-        public virtual DbSet<Target> Targets { get; set; }
+        public virtual DbSet<Goal> Goal { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Target>()
-                .Property(e => e.Goal)
+            modelBuilder.Entity<Goal>()
+                .Property(e => e.TargetName)
                 .IsUnicode(false);
         }
     }

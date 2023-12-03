@@ -18,9 +18,6 @@ namespace WebApplication1.Models
         public string CoachSurname { get; set; }
 
         [StringLength(50)]
-        public string CoachExpert { get; set; }
-
-        [StringLength(50)]
         public string CoachExperience { get; set; }
 
         [StringLength(50)]
@@ -33,5 +30,7 @@ namespace WebApplication1.Models
         public string CoachPassword { get; set; }
 
         public int? CoachQuota { get; set; }
+
+        public int? TargetId { get; set; }
     }
 }
