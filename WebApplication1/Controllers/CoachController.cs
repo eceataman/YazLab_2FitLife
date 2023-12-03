@@ -100,6 +100,60 @@ namespace WebApplication1.Controllers
 
             return View("Profile", currentCoach);
         }
+        public ActionResult AddExerciseProgram(int userId)
+        {
+            // Ensure the coach is logged in
+            if (Session["CurrentCoach"] == null)
+            {
+                return RedirectToAction("Login");
+            }
+
+            // Retrieve the current coach from the session
+            Coach currentCoach = (Coach)Session["CurrentCoach"];
+
+            // You may want to load additional data related to the coach here
+
+            // Create a new ExerciseProgram object with default values
+            ExerciseProgram newExerciseProgram = new ExerciseProgram
+            {
+                UserId = userId,
+                // Set other default values as needed
+            };
+
+            return View(newExerciseProgram);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddExerciseProgram(ExerciseProgram newExerciseProgram)
+        {
+            // Ensure the coach is logged in
+            if (Session["CurrentCoach"] == null)
+            {
+                return RedirectToAction("Login");
+            }
+
+            // Retrieve the current coach from the session
+            Coach currentCoach = (Coach)Session["CurrentCoach"];
+
+            // You may want to load additional data related to the coach here
+
+            if (ModelState.IsValid)
+            {
+                using (Model1 dbModel = new Model1())
+                {
+                    // Add the new exercise program to the database
+                    dbModel.ExercisePrograms.Add(newExerciseProgram);
+                    dbModel.SaveChanges();
+
+                    ViewBag.SuccessMessage = "Exercise program added successfully";
+                }
+            }
+
+            return View(newExerciseProgram);
+        }
+
+
     }
 
 }

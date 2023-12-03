@@ -137,11 +137,16 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Coach.cs" />
+    <Compile Include="Models\ExerciseProgram.cs" />
     <Compile Include="Models\Goal.cs" />
     <Compile Include="Models\LoginDto.cs" />
     <Compile Include="Models\LoginViewModel2.cs" />
+    <Compile Include="Models\Message.cs" />
     <Compile Include="Models\Model1.cs" />
     <Compile Include="Models\Model3.cs" />
+    <Compile Include="Models\NutritionPlan.cs" />
+    <Compile Include="Models\Progress.cs" />
+    <Compile Include="Models\Target.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -309,6 +314,7 @@
     <Content Include="Views\Coach\Login.cshtml" />
     <Content Include="Views\Coach\Profile.cshtml" />
     <Content Include="Views\Coach\Index.cshtml" />
+    <Content Include="Views\Coach\AddExerciseProgram.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
