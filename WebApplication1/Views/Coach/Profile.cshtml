@@ -40,6 +40,35 @@
             @Html.ValidationMessageFor(model => model.CoachPhone, "", new { @class = "text-danger" })
         </div>
     </div>
+    <h2>Welcome, @Model.CoachName!</h2>
+
+    <p>Assigned Users:</p>
+
+    @if (Model.AssignedUsers != null && Model.AssignedUsers.Any())
+    {
+        <table class="table">
+            <tr>
+                <th>User ID</th>
+                <th>User Name</th>
+                <th>User Surname</th>
+                <!-- Add other user properties as needed -->
+            </tr>
+
+            @foreach (var user in Model.AssignedUsers)
+            {
+                <tr>
+                    <td>@user.UserId</td>
+                    <td>@user.UserName</td>
+                    <td>@user.UserSurname</td>
+                    <!-- Display other user properties as needed -->
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p>No assigned users.</p>
+    }
 
     <!-- Add other input fields as needed -->
 

@@ -59,6 +59,10 @@ namespace WebApplication1.Controllers
 
             // Retrieve the current coach from the session
             Coach currentCoach = (Coach)Session["CurrentCoach"];
+            using (Model1 dbModel = new Model1())
+            {
+                currentCoach.AssignedUsers = dbModel.Users.Where(u => u.CoachId == currentCoach.CoachId).ToList();
+            }
 
             // You may want to load additional data related to the coach here
 

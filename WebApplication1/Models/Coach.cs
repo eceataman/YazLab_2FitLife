@@ -32,5 +32,6 @@ namespace WebApplication1.Models
         public int? CoachQuota { get; set; }
 
         public int? TargetId { get; set; }
+        public List<User> AssignedUsers { get; set; }
     }
 }
