@@ -160,22 +160,36 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="img\1.jpg" />
+    <Content Include="img\2.jpg" />
+    <Content Include="img\3.jpg" />
+    <Content Include="img\4.jpg" />
+    <Content Include="img\5.jpg" />
+    <Content Include="img\6.jpg" />
     <Content Include="img\admin.jpg" />
+    <Content Include="img\afra.jfif" />
     <Content Include="img\fitnes2.jpg" />
     <Content Include="img\fitness.jpg" />
     <Content Include="img\fitt..jpg" />
     <Content Include="img\fitt1.jpg" />
     <Content Include="img\fitt2.jpg" />
     <Content Include="img\fitt3.jpg" />
-    <Content Include="img\fitt4.jpg" />
     <Content Include="img\fitt5.jpg" />
     <Content Include="img\generaluser.png" />
+    <Content Include="img\hakan.jfif" />
     <Content Include="img\images.jfif" />
+    <Content Include="img\IMG_2910.jpg" />
+    <Content Include="img\Kardiyo.jpg" />
+    <Content Include="img\kocaeli-edu-logo-m-7.jpg" />
     <Content Include="img\login.jpg" />
     <Content Include="img\login1.jpg" />
+    <Content Include="img\logo.jpg" />
     <Content Include="img\register.jpg" />
     <Content Include="img\run.jpg" />
+    <Content Include="img\Workout.jpg" />
     <Content Include="img\xxx.jpg" />
+    <Content Include="img\yagmur.jpg" />
+    <Content Include="img\yamur.jfif" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -318,6 +332,7 @@
     <Content Include="Views\User\ViewExerciseProgram.cshtml" />
     <Content Include="Views\Coach\AddNutritionPlan.cshtml" />
     <Content Include="Views\User\ViewNutritionPlan.cshtml" />
+    <Content Include="Views\User\EditP.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

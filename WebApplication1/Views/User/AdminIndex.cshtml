@@ -1,9 +1,7 @@
 ﻿@model List<WebApplication1.Models.User>
 
-@{
-    ViewBag.Title = "Admin Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+@{ ViewBag.Title = "Admin Index";
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
 
 <!DOCTYPE html>
 <html lang="en">
@@ -100,7 +98,7 @@
         <section class="table__body">
             @if (Model != null && Model.Any())
             {
-                <h3>Users (User Role 1)</h3>
+<h3>Users (User Role 1)</h3>
                 <table>
                     <thead>
                         <tr>
@@ -117,91 +115,89 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var user in Model.Where(u => u.UserRole == 1 && u.RecordStatus==1))
+                        @foreach (var user in Model.Where(u => u.UserRole == 1 && u.RecordStatus == 1))
                         {
-                        <tr>
-                            <td>@user.UserId</td>
-                            <td>@user.UserName</td>
-                            <td>@user.UserSurname</td>
-                            <td>@user.UserPass</td>
-                            <td>@user.UserBirth</td>
-                            <td>@user.UserMail</td>
-                            <td>@user.UserGender</td>
-                            <td>@user.UserPhone</td>
-                            <td>@user.UserPhoto</td>
-                            <td>
-                                <!-- Add an Edit button -->
-                                <a href="@Url.Action("Edit", "User", new { userId = user.UserId })">Edit</a>
-                            </td>
-                            <td>
-                                <!-- Add an Edit button -->
-                                <a href="@Url.Action("Disable", "User", new { userId = user.UserId })">Devre Dışı Bırak</a>
-                            </td>
-                            <td>
-                                <a href="@Url.Action("Enable", "User", new { userId = user.UserId })">Etkinleştir</a>
-                            </td>
-                        </tr>
-                        }
+        <tr>
+            <td>@user.UserId</td>
+            <td>@user.UserName</td>
+            <td>@user.UserSurname</td>
+            <td>@user.UserPass</td>
+            <td>@user.UserBirth</td>
+            <td>@user.UserMail</td>
+            <td>@user.UserGender</td>
+            <td>@user.UserPhone</td>
+            <td>@user.UserPhoto</td>
+            <td>
+                <!-- Add an Edit button -->
+                <a href="@Url.Action("Edit", "User", new { userId = user.UserId })">Edit</a>
+            </td>
+            <td>
+                <!-- Add an Edit button -->
+                <a href="@Url.Action("Disable", "User", new { userId = user.UserId })">Devre Dışı Bırak</a>
+            </td>
+            <td>
+                <a href="@Url.Action("Enable", "User", new { userId = user.UserId })">Etkinleştir</a>
+            </td>
+        </tr>
+}
                     </tbody>
                 </table>
-                <p>
-                    <!-- Add a button to add a new user -->
-                    <a href="@Url.Action("AddOrEdit", "User")" class="btn btn-success">Add New User</a>
-                </p>
+                                <p>
+                                    <!-- Add a button to add a new user -->
+                                    <a href="@Url.Action("AddOrEdit", "User")" class="btn btn-success">Add New User</a>
+                                </p>
 
-                <h3>Coaches (User Role 3)</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>User ID</th>
-                            <th>User Name</th>
-                            <th>User Surname</th>
-                            <th>Şifre</th>
-                            <th>Doğum tarihi</th>
-                            <th>User Email</th>
-                            <th>Cinsiyet</th>
-                            <th>Telefon</th>
-                            <th>Fotoğraf</th>
-                            <th>Actions</th> <!-- Add a new column for actions -->
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var user in Model.Where(u => u.UserRole == 3))
-                        {
-                        <tr>
-                            <td>@user.UserId</td>
-                            <td>@user.UserName</td>
-                            <td>@user.UserSurname</td>
-                            <td>@user.UserPass</td>
-                            <td>@user.UserBirth</td>
-                            <td>@user.UserMail</td>
-                            <td>@user.UserGender</td>
-                            <td>@user.UserPhone</td>
-                            <td>@user.UserPhoto</td>
-                            <td>
-                                <!-- Add an Edit button -->
-                                <a href="@Url.Action("Edit", "User", new { userId = user.UserId })">Edit</a>
-                            </td>
-                            <td>
-                               
-                                <a href="@Url.Action("Disable", "User", new { userId = user.UserId })">Devre Dışı Bırak</a>
-                            </td>
-                            <td>
-                                <a href="@Url.Action("Enable", "User", new { userId = user.UserId })">Etkinleştir</a>
-                            </td>
-                        </tr>
-                        }
-                    </tbody>
-                </table>
-                <p>
-                    <!-- Add a button to add a new coach -->
-                    <a href="@Url.Action("AddOrEdit", "User")" class="btn btn-success">Add New Coach</a>
-                </p>
-            }
-            else
-            {
-                <p>No users found.</p>
-            }
+                                                <h3>Coaches (User Role 3)</h3>
+                                                                <table>
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>User ID</th>
+                                                                            <th>User Name</th>
+                                                                            <th>User Surname</th>
+                                                                            <th>Şifre</th>
+                                                                            <th>Doğum tarihi</th>
+                                                                            <th>User Email</th>
+                                                                            <th>Cinsiyet</th>
+                                                                            <th>Telefon</th>
+                                                                            <th>Fotoğraf</th>
+                                                                            <th>Actions</th> <!-- Add a new column for actions -->
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        @foreach (var user in Model.Where(u => u.UserRole == 3))
+                                                                        {
+                                                        <tr>
+                                                            <td>@user.UserId</td>
+                                                            <td>@user.UserName</td>
+                                                            <td>@user.UserSurname</td>
+                                                            <td>@user.UserPass</td>
+                                                            <td>@user.UserBirth</td>
+                                                            <td>@user.UserMail</td>
+                                                            <td>@user.UserGender</td>
+                                                            <td>@user.UserPhone</td>
+                                                            <td>@user.UserPhoto</td>
+                                                            <td>
+                                                                <!-- Add an Edit button -->
+                                                                <a href="@Url.Action("Edit", "User", new { userId = user.UserId })">Edit</a>
+                                                            </td>
+                                                            <td>
+
+                                                                <a href="@Url.Action("Disable", "User", new { userId = user.UserId })">Devre Dışı Bırak</a>
+                                                            </td>
+                                                            <td>
+                                                                <a href="@Url.Action("Enable", "User", new { userId = user.UserId })">Etkinleştir</a>
+                                                            </td>
+                                                        </tr>
+}
+                                                                    </tbody>
+                                                                </table>
+                                                                                <p>
+                                                                                    <!-- Add a button to add a new coach -->
+                                                                                    <a href="@Url.Action("AddOrEdit", "User")" class="btn btn-success">Add New Coach</a>
+                                                                                </p> }
+                                                                            else
+                                                                            {
+                                                                <p>No users found.</p>}
         </section>
     </main>
 </body>

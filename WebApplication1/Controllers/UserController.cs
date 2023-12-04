@@ -135,7 +135,7 @@ namespace WebApplication1.Controllers
                 return stringBuilder.ToString();
             }
         }
-            public ActionResult Edit()
+        public ActionResult EditP()
         {
             // Check if the user is logged in
             if (Session["CurrentUser"] != null)
@@ -149,15 +149,11 @@ namespace WebApplication1.Controllers
                 // Redirect to login if the user is not logged in
                 return RedirectToAction("Login");
             }
-        }
-        public ActionResult Login()
-        {
-            LoginDto loginModel = new LoginDto();
-            return View(loginModel);
+
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(User userModel, HttpPostedFileBase UserPhotoFile)
+        public ActionResult EditP(User userModel, HttpPostedFileBase UserPhotoFile)
         {
             if (ModelState.IsValid)
             {
@@ -196,6 +192,82 @@ namespace WebApplication1.Controllers
 
             return View(userModel);
         }
+        public ActionResult Login()
+        {
+            LoginDto loginModel = new LoginDto();
+            return View(loginModel);
+        }
+      
+        public ActionResult Edit(int userId)
+        {
+            using (Model1 dbModel = new Model1())
+            {
+                // Retrieve the user from the database based on the userId
+                var user = dbModel.Users.Find(userId);
+
+                if (user == null)
+                {
+                    // Handle the case where the user is not found
+                    return HttpNotFound();
+                }
+
+                // Pass the user object to the view for editing
+                return View(user);
+            }
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Update(User updatedUser, HttpPostedFileBase UserPhotoFile)
+        {
+            if (ModelState.IsValid)
+            {
+                using (Model1 dbModel = new Model1())
+                {
+                    // Retrieve the existing user from the database
+                    var existingUser = dbModel.Users.Find(updatedUser.UserId);
+
+                    if (existingUser != null)
+                    {
+                        // Update user details
+                        existingUser.UserName = updatedUser.UserName;
+                        // Update other fields as needed
+
+                        // Update user photo if a new file is provided
+                        if (UserPhotoFile != null && UserPhotoFile.ContentLength > 0)
+                        {
+                            string uploadFolderPath = Server.MapPath("~/Uploads");
+
+                            if (!Directory.Exists(uploadFolderPath))
+                            {
+                                Directory.CreateDirectory(uploadFolderPath);
+                            }
+
+                            string fileName = Path.GetFileName(UserPhotoFile.FileName);
+                            string filePath = Path.Combine(uploadFolderPath, fileName);
+
+                            UserPhotoFile.SaveAs(filePath);
+
+                            existingUser.UserPhoto = "~/Uploads/" + fileName;
+                        }
+
+                        // Save changes to the database
+                        dbModel.SaveChanges();
+
+                        // Update the user in the session
+                        Session["CurrentUser"] = existingUser;
+
+                        ViewBag.SuccessMessage = "User information updated successfully";
+                    }
+                    else
+                    {
+                        ViewBag.ErrorMessage = "User not found";
+                    }
+                }
+            }
+
+            return View("Edit", updatedUser);
+        }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -207,7 +279,7 @@ namespace WebApplication1.Controllers
                 {
                     var user = dbModel.Users.FirstOrDefault(u => u.UserMail == loginModel.UserMail);
 
-                    if (user != null && user.UserPass == HashPassword(loginModel.UserPass))
+                    if (user != null && user.RecordStatus == 1 && user.UserPass == HashPassword(loginModel.UserPass ))
                     {
                         // Set the CurrentUser property to the logged-in user
                         Session["CurrentUser"] = user;

@@ -1,37 +1,92 @@
 ﻿@model WebApplication1.Models.LoginViewModel2
 
-@{
-    ViewBag.Title = "Coach Login";
-}
+@{ ViewBag.Title = "Coach Login"; }
 
-<h2>Coach Login</h2>
+<style>
+    body {
+        display: grid;
+        place-items: center;
+        height: 100vh;
+        margin: 0;
+        background: url('../img/Workout.jpg') center/cover no-repeat; /* Arka plan resmini ayarlayın */
+        font-family: fantasy; /* Yazı tipini istediğiniz gibi değiştirin */
+    }
+
+    h2 {
+        color: #fff;
+        text-align: center;
+    }
+
+    form {
+        width: 300px;
+        margin: 20px auto;
+        background: #fff;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .control-label {
+        font-weight: bold;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+
+    .btn-primary {
+        background: linear-gradient(-135deg, #c850c0, #4158d0);
+        font-family: fantasy;
+        color: #fff;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        text-align: center; /* Butonu ortaya hizala */
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+</style>
+
+<h2>HOŞ GELDİNİZ</h2>
 
 @using (Html.BeginForm("Login", "Coach", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
-    @Html.AntiForgeryToken()
+@Html.AntiForgeryToken()
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.CoachMail, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(model => model.CoachMail, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.CoachMail, "", new { @class = "text-danger" })
-        </div>
-    </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CoachMail, "E-Posta:", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.CoachMail, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.CoachMail, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.CoachPassword, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.PasswordFor(model => model.CoachPassword, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.CoachPassword, "", new { @class = "text-danger" })
-        </div>
-    </div>
-   
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Login" class="btn btn-primary" />
-        </div>
-    </div>
-}
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.CoachPassword, "Şifre:", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.PasswordFor(model => model.CoachPassword, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.CoachPassword, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
 
 
+                                                <div class="form-group">
+                                                    <div class="col-md-offset-2 col-md-10">
+                                                        <input type="submit" value="GİRİŞ YAP" class="btn btn-primary" />
+                                                    </div>
+                                                </div>}

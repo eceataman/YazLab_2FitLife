@@ -13,60 +13,108 @@
             background: linear-gradient(-135deg, #c850c0, #4158d0);
             text-align: left;
             font-family: fantasy;
-            padding: 5px;
-            font-size: 80px; /* İhtiyaca göre font boyutunu ayarlayın */
-            margin-top: 0;
-        }
-
-
-        body {
+            padding: 0;
+            font-size: 80px;
             margin: 0;
         }
 
-        /* Üst gezinme çubuğunu stilize et */
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
         .topnav {
+            background-color: black;
+            font-size: 15px;
             font-family: fantasy;
             overflow: hidden;
             background-color: #333;
-            text-align: right; /* Sağa hizalama */
+            display: flex;
+            justify-content: space-between;
         }
 
-            /* Üst gezinme linklerini stilize et */
-            .topnav a {
-                float: right; /* Sağa yaslanacak */
+        .left-nav {
+            display: flex;
+        }
+
+            .left-nav a {
+                float: left;
                 display: block;
                 color: #f2f2f2;
                 text-align: center;
                 padding: 15px 20px;
                 text-decoration: none;
+                cursor: pointer;
             }
 
-                /* Üzerine gelindiğinde renk değiştir */
-                .topnav a:hover {
-                    background-color:black;
+                .left-nav a:hover {
+                    background-color: black;
                     color: linear-gradient(-135deg, #c850c0, #4158d0);
+                }
+
+        .right-nav {
+            display: flex;
+        }
+
+            .right-nav a {
+                float: right;
+                display: block;
+                color: #f2f2f2;
+                text-align: center;
+                padding: 15px 20px;
+                text-decoration: none;
+                cursor: pointer;
+            }
+
+                .right-nav a:hover {
+                    background-color: black;
+                    color: linear-gradient(-135deg, #c850c0, #4158d0);
+                }
+
+        .submenu {
+            display: none;
+            position: absolute;
+            background-color: black;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            text-align: right;
+        }
+
+            .submenu a {
+                float: none;
+                color: #f2f2f2;
+                text-align: center;
+                padding: 10px 20px;
+                text-decoration: none;
+                display: block;
+                cursor: pointer;
+            }
+
+                .submenu a:hover {
+                    background-color: #555;
                 }
     </style>
 </head>
 
 <body>
     <div class="header">
-       FITLIFE
+        FITLIFE
     </div>
-
-    <!-- Aktif Edilen Top Navigation Bar -->
     <div class="topnav">
-        <div style="float: left;">
-            @Html.ActionLink("HAKKINDA", "About", "Home")
+        <div class="left-nav">
             @Html.ActionLink("ANASAYFA", "Index", "Home")
-
+            @Html.ActionLink("HAKKINDA", "About", "Home")
+            @Html.ActionLink("KAYIT OL", "AddOrEdit", "User")
+        </div>
+        <div class="right-nav">
+            <div class="submenu-toggle" onclick="toggleSubMenu()" style=" color: #f2f2f2;">GİRİŞ YAP</div>
+            <div class="submenu">
+                @Html.ActionLink("Kullanıcı", "Login", "User")
+                @Html.ActionLink("Antrenör", "Login", "Coach")
             </div>
-        <div style="float: right;">
-            <a href="@Url.Action("Login", "User")">GİRİŞ YAP</a>
-            <a href="@Url.Action("AddOrEdit", "User")">KAYIT OL</a>
+
         </div>
     </div>
-
 
     <div class="container body-content">
         @RenderBody()
@@ -79,6 +127,11 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
+    <script>function toggleSubMenu() {
+            var submenu = document.querySelector('.submenu');
+            submenu.style.display = (submenu.style.display === 'none' || submenu.style.display === '') ? 'block' : 'none';
+        }</script>
 </body>
 
 </html>

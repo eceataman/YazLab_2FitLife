@@ -1,108 +1,200 @@
 ﻿@model WebApplication1.Models.User
 
-@{
-    ViewBag.Title = "Index";
-}
+@{ ViewBag.Title = "Index"; }
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
 
-<h2>User Profile</h2>
+    <!-- Include your CSS styles or link to an external stylesheet here -->
+    <style>
+        body {
+            font-family: fantasy;
+            /* background: url('../img/logo.jpg') no-repeat center center fixed;*/
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            /*color: #fff;  Set text color to white for better visibility on the background */
+            transition: background-color .5s;
+        }
 
-@if (Model != null)
-{
-    <div>
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.UserName)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.UserName)
-            </dd>
-        </dl>
-    </div>
-    <div>
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.UserSurname)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.UserSurname)
-            </dd>
-        </dl>
-    </div>
-    <div>
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.UserPhone)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.UserPhone)
-            </dd>
-        </dl>
-    </div>
-    <div>
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.UserMail)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.UserMail)
-            </dd>
-        </dl>
-    </div>
-    <div>
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.UserGender)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.UserGender)
-            </dd>
-        </dl>
-    </div>
-    <div>
-        <dl class="dl-horizontal">
-            <dt>
-                User Photo
-            </dt>
-            <dd>
-                @if (!string.IsNullOrEmpty(Model.UserPhoto))
-                {
-                    <img src="@Url.Content(Model.UserPhoto)" alt="User Photo" />
+        .card {
+            margin: 20px auto;
+            max-width: 540px;
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background for better readability */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        h3 {
+            color: linear-gradient(-135deg, #c850c0, #4158d0);
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+            input[type="submit"]:hover {
+                background-color: linear-gradient(-135deg, #c850c0, #4158d0);
+            }
+
+        p {
+            margin-bottom: 10px;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+            a:hover {
+                text-decoration: underline;
+            }
+
+        /* The side navigation menu */
+        .sidenav {
+            height: 100%; /* 100% Full-height */
+            width: 0; /* 0 width - change this with JavaScript */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Stay on top */
+            top: 0; /* Stay at the top */
+            left: 0;
+            background-color: #111; /* Black*/
+            overflow-x: hidden; /* Disable horizontal scroll */
+            padding-top: 60px; /* Place content 60px from the top */
+            transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+        }
+
+            /* The navigation menu links */
+            .sidenav a {
+                padding: 8px 8px 8px 32px;
+                text-decoration: none;
+                font-size: 25px;
+                color: #818181;
+                display: block;
+                transition: 0.3s;
+            }
+
+                /* When you mouse over the navigation links, change their color */
+                .sidenav a:hover {
+                    color: #f1f1f1;
                 }
+
+            /* Position and style the close button (top right corner) */
+            .sidenav .closebtn {
+                position: absolute;
+                top: 0;
+                right: 25px;
+                font-size: 36px;
+                margin-left: 50px;
+            }
+
+        /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+        #main {
+            transition: margin-left .5s;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="@Url.Action("EditP", "User")">Profili Düzenle</a>
+        <a href="@Url.Action("SaveProgress", "User")">İlerlemeyi Gir</a>
+        <a href="@Url.Action("SendMessageToCoach", "User")">Mesaj Gönder</a>
+
+    </div>
+
+
+    <div id="main">
+        <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+    </div>
+
+    <script>function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
+            document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+            document.getElementById("main").style.marginLeft = "0";
+            document.body.style.backgroundColor = "white";
+        }</script>
+
+
+    @if (Model != null)
+    {
+<div class="card mb-3">
+    <div class="row no-gutters">
+        <div class="col-md-4">
+            @if (!string.IsNullOrEmpty(Model.UserPhoto))
+            {
+<img src="@Url.Content(Model.UserPhoto)" class="card-img" alt="User Photo"> }
                 else
                 {
-                    <p>No photo available</p>
-                }
-            </dd>
-        </dl>
+<p>No photo available</p>}
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h3 class="card-title">@Html.DisplayFor(model => model.UserName) @Html.DisplayFor(model => model.UserSurname)</h3>
+                <p class="card-text"> CİNSİYET:@Html.DisplayFor(model => model.UserGender)  </p>
+                <p class="card-text"> MAİL:@Html.DisplayFor(model => model.UserMail)  </p>
+                <p class="card-text"> DOĞUM TARİHİ: @Html.DisplayFor(model => model.UserBirth)  </p>
+                <p class="card-text"> TELEFON: @Html.DisplayFor(model => model.UserPhone)  </p>
+            </div>
+        </div>
     </div>
+</div>
 
-    <div>
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.UserBirth)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.UserBirth)
-            </dd>
-        </dl>
-    </div>
+                <div class="card mb-3">
+                    <form action="@Url.Action("SaveTarget", "User")" method="post">
+                        <label for="goal">Select Your Goal:</label>
+                        <select name="goal" id="goal">
+                            <option value="Kilo Aldırma">Kilo Alma</option>
+                            <option value="Kilo Verdirme">Kilo Verme</option>
+                            <option value="Kilo Koruma">Kilo Koruma</option>
+                            <option value="Kas Kazanma">Kas Kazanma</option>
+                        </select>
+                        <input type="submit" value="Hedef Kaydet" />
+                    </form>
+                </div> }
+                            else
+                            {
+                <p>User not logged in. Please log in to view your profile.</p>}
 
-    <p>
-        @Html.ActionLink("Edit Profile", "Edit", "User")
-        @Html.ActionLink("View Exercise Program", "ViewExerciseProgram", "User")
-        @Html.ActionLink("View Nutrition Program", "ViewNutritionPlan", "User")
-    </p>
-    
-    <div>
-        <form action="@Url.Action("SaveTarget", "User")" method="post">
 
-             @Html.DropDownList("goal", ViewBag.GoalList as SelectList, "Select a Goal", new { @class = "form-control" })
-            <input type="submit" value="Hedef Kaydet" />
-        </form>
-    </div>
-}
-else
-{
-    <p>User not logged in. Please log in to view your profile.</p>
-}
+</body>
+</html>

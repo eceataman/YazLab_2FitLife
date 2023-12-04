@@ -1,0 +1,116 @@
+﻿@model WebApplication1.Models.User
+@{ ViewBag.Title = "Edit Profile"; }
+
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title>EDIT</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: fantasy;
+            background: url('../img/register.jpg') center/cover no-repeat;
+        }
+
+        .col-md-10 {
+            border-radius: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Profili Düzenle</h2>
+
+    @using (Html.BeginForm("EditP", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+@Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    @*<h4>User Information</h4>*@
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.UserId)
+
+                    <!-- Display user information fields here -->
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UserSurname, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.UserSurname, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.UserSurname, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UserPass, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.UserPass, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.UserPass, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UserBirth, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.UserBirth, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.UserBirth, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UserMail, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.UserMail, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.UserMail, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UserGender, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10 gender-box">
+                            <div class="gender-option">
+                                <div class="gender">
+                                    @Html.RadioButtonFor(model => model.UserGender, "Male", new { id = "check-male", @checked = "checked" })
+                                    @Html.LabelFor(model => model.UserGender, "Erkek")
+                                </div>
+                                <div class="gender">
+                                    @Html.RadioButtonFor(model => model.UserGender, "Female", new { id = "check-female" })
+                                    @Html.LabelFor(model => model.UserGender, "Kadın")
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UserPhone, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.UserPhone, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.UserPhone, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UserPhoto, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <input type="file" name="UserPhotoFile" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UserRole, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.UserRole, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.UserRole, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Save" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>}
+
+    <div>
+        @Html.ActionLink("Back to Profile", "Index", "User")
+    </div>
+</body>
+</html>
