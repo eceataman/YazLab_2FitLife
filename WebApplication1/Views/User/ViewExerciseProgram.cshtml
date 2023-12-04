@@ -1,0 +1,74 @@
+﻿@model List<WebApplication1.Models.ExerciseProgram>
+
+@{
+    ViewBag.Title = "Exercise Programs";
+}
+
+<h2>User Exercise Programs</h2>
+
+@if (Model != null && Model.Count > 0)
+{
+    foreach (var exerciseProgram in Model)
+    {
+        <div>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => exerciseProgram.ExerciseName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => exerciseProgram.ExerciseName)
+                </dd>
+            </dl>
+        </div>
+        <div>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => exerciseProgram.SetNumber)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => exerciseProgram.SetNumber)
+                </dd>
+            </dl>
+        </div>
+        <div>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => exerciseProgram.RepeatNumber)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => exerciseProgram.RepeatNumber)
+                </dd>
+            </dl>
+        </div>
+        <div>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => exerciseProgram.VideoGuide)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => exerciseProgram.VideoGuide)
+                </dd>
+            </dl>
+        </div>
+        <div>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => exerciseProgram.ProgramDuration)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => exerciseProgram.ProgramDuration)
+                </dd>
+            </dl>
+        </div>
+
+    }
+}
+else
+{
+    <p>No exercise programs found.</p>
+}
+
+<p>
+    @Html.ActionLink("Back to Profile", "Index", "User")
+</p>
+<hr />

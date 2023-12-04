@@ -152,6 +152,59 @@ namespace WebApplication1.Controllers
 
             return View(newExerciseProgram);
         }
+        public ActionResult AddNutritionPlan(int userId)
+        {
+            // Ensure the coach is logged in
+            if (Session["CurrentCoach"] == null)
+            {
+                return RedirectToAction("Login");
+            }
+
+            // Retrieve the current coach from the session
+            Coach currentCoach = (Coach)Session["CurrentCoach"];
+
+            // You may want to load additional data related to the coach here
+
+            // Create a new NutritionPlan object with default values
+            NutritionPlan newNutritionPlan = new NutritionPlan
+            {
+                UserId = userId,
+                // Set other default values as needed
+            };
+
+            return View(newNutritionPlan);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddNutritionPlan(NutritionPlan newNutritionPlan)
+        {
+            // Ensure the coach is logged in
+            if (Session["CurrentCoach"] == null)
+            {
+                return RedirectToAction("Login");
+            }
+
+            // Retrieve the current coach from the session
+            Coach currentCoach = (Coach)Session["CurrentCoach"];
+
+            // You may want to load additional data related to the coach here
+
+            if (ModelState.IsValid)
+            {
+                using (Model1 dbModel = new Model1())
+                {
+                    // Add the new nutrition plan to the database
+                    dbModel.NutritionPlans.Add(newNutritionPlan);
+                    dbModel.SaveChanges();
+
+                    ViewBag.SuccessMessage = "Nutrition plan added successfully";
+                }
+            }
+
+            return View(newNutritionPlan);
+        }
+
 
 
     }

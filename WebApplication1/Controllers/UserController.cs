@@ -353,6 +353,66 @@ namespace WebApplication1.Controllers
 
             return RedirectToAction("Index");
         }
+        public ActionResult ViewExerciseProgram()
+        {
+            // Ensure the user is logged in
+            if (Session["CurrentUser"] == null)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
+            // Retrieve the current user from the session
+            User currentUser = (User)Session["CurrentUser"];
+
+            using (Model1 dbModel = new Model1())
+            {
+                // Retrieve all exercise programs for the current user
+                List<ExerciseProgram> exercisePrograms = dbModel.ExercisePrograms
+                    .Where(ep => ep.UserId == currentUser.UserId)
+                    .ToList();
+
+                if (exercisePrograms.Count > 0)
+                {
+                    // Pass the list of exercise programs to the view
+                    return View(exercisePrograms);
+                }
+                else
+                {
+                    // If no exercise programs are found, you may handle this case accordingly
+                    return View("ExerciseProgramsNotFound");
+                }
+            }
+        }
+
+        public ActionResult ViewNutritionPlan()
+        {
+            // Ensure the user is logged in
+            if (Session["CurrentUser"] == null)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
+            // Retrieve the current user from the session
+            User currentUser = (User)Session["CurrentUser"];
+
+            using (Model1 dbModel = new Model1())
+            {
+                // Retrieve the exercise program for the current user
+                NutritionPlan nutritionPlan = dbModel.NutritionPlans.FirstOrDefault(ep => ep.UserId == currentUser.UserId);
+
+                if (nutritionPlan != null)
+                {
+                    // Pass the exercise program to the view
+                    return View(nutritionPlan);
+                }
+                else
+                {
+                    // If no exercise program is found, you may handle this case accordingly
+                    return View("nutritionPlanNotFound");
+                }
+            }
+        }
+
 
 
     }

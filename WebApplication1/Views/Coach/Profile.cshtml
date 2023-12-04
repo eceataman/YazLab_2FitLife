@@ -61,11 +61,13 @@
                         <td>@user.UserId</td>
                         <td>@user.UserName</td>
                         <td>@user.UserSurname</td>
-                        <td><<div class="form-group">
-    <div class="col-md-offset-2 col-md-10">
-        <a href="@Url.Action("AddExerciseProgram", "Coach", new { userId = user.UserId })" class="btn btn-primary">Add Exercise Program for @user.UserName</a>
-    </div>
-</div></td>
+                        <td>
+                            <<div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <a href="@Url.Action("AddExerciseProgram", "Coach", new { userId = user.UserId })" class="btn btn-primary">Add Exercise Program for @user.UserName</a>
+                                </div>
+                            </div>
+                        </td>
                         <!-- Display other user properties as needed -->
                     </tr>
                 }
@@ -92,6 +94,12 @@
                 <div class="col-md-offset-2 col-md-10">
                     <a href="@Url.Action("AddExerciseProgram", "Coach", new { userId = user.UserId })" class="btn btn-primary">Add Exercise Program for @user.UserName</a>
                 </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <a href="@Url.Action("AddNutritionPlan", "Coach", new { userId = user.UserId })" class="btn btn-primary">Add Nutrition Program for @user.UserName</a>
+                </div>
+
             </div>
         }
     }

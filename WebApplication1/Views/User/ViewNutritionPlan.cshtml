@@ -1,0 +1,70 @@
+﻿@model WebApplication1.Models.NutritionPlan
+
+@{
+    ViewBag.Title = "Nutrition Plan";
+}
+
+<h2>User Nutrition Program</h2>
+
+@if (Model != null)
+{
+    <div>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.CalorieTarget)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CalorieTarget)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Breakfast)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Breakfast)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Lunch)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Lunch)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Snack)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Snack)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Dinner)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Dinner)
+            </dd>
+        </dl>
+    </div>
+
+
+    <p>
+        @Html.ActionLink("Back to Profile", "Index", "User")
+    </p>
+}
+else
+{
+    <p>Nutrition program not found.</p>
+}

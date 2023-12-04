@@ -315,6 +315,9 @@
     <Content Include="Views\Coach\Profile.cshtml" />
     <Content Include="Views\Coach\Index.cshtml" />
     <Content Include="Views\Coach\AddExerciseProgram.cshtml" />
+    <Content Include="Views\User\ViewExerciseProgram.cshtml" />
+    <Content Include="Views\Coach\AddNutritionPlan.cshtml" />
+    <Content Include="Views\User\ViewNutritionPlan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
