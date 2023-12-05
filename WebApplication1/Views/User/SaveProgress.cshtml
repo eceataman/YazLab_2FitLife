@@ -1,0 +1,109 @@
+﻿@model WebApplication1.Models.Progress
+
+@{
+    ViewBag.Title = "Save Progress";
+}
+<style>
+    body {
+        font-family: fantasy;
+        background: url('../img/arka.jpg') center/cover no-repeat;
+    }
+
+    h2 {
+        color: black;
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+       
+        color: #ffffff;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+        border: 1px solid #ced4da;
+        border-radius: 5px;
+    }
+
+    .text-danger {
+        color: #dc3545;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: #ffffff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    .form-horizontal {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
+        margin: 20px auto;
+        width: 80%;
+    }
+
+    .col-md-10 {
+        border-radius: 15px;
+    }
+
+    .col-md-offset-2 {
+        margin-left: 16.66666667%;
+    }
+
+    input[type="submit"] {
+        display: block;
+        margin: 0 auto;
+    }
+</style>
+
+<h2>İLERLEMENİZİ KAYDEDİN</h2>
+
+@using (Html.BeginForm("SaveProgressAction", "User", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.UserHeight)
+        @Html.EditorFor(model => model.UserHeight, new { htmlAttributes = new { @class = "form-control", type = "number", step = "0.01" } })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.UserWeight)
+        @Html.EditorFor(model => model.UserWeight, new { htmlAttributes = new { @class = "form-control", type = "number", step = "0.01" } })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.UserMuscle)
+        @Html.EditorFor(model => model.UserMuscle, new { htmlAttributes = new { @class = "form-control", type = "number", step = "0.01" } })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.UserFat)
+        @Html.EditorFor(model => model.UserFat, new { htmlAttributes = new { @class = "form-control", type = "number", step = "0.01" } })
+    </div>
+        <div class="form-group">
+        @Html.LabelFor(model => model.UserBMI)
+        @Html.EditorFor(model => model.UserBMI, new { htmlAttributes = new { @class = "form-control", type = "number", step = "0.01" } })
+    </div>
+
+    
+    <!-- Repeat the above code for other properties -->
+
+    <button type="submit" class="btn btn-primary">KAYDET</button>
+}

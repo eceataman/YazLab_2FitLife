@@ -164,6 +164,9 @@
     <Content Include="Content\Site.css" />
     <Content Include="img\admin.jpg" />
     <Content Include="img\afra.jfif" />
+    <Content Include="img\arka.jpg" />
+    <Content Include="img\batuhan.jpg" />
+    <Content Include="img\ece.jpg" />
     <Content Include="img\equipment.jpg" />
     <Content Include="img\fitnes2.jpg" />
     <Content Include="img\fitness.jpg" />
@@ -329,6 +332,7 @@
     <Content Include="Views\User\SendMessageToCoach.cshtml" />
     <Content Include="Views\Coach\SendMessageToUser.cshtml" />
     <Content Include="Views\Coach\ViewReceivedMessages.cshtml" />
+    <Content Include="Views\User\SaveProgress.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

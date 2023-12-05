@@ -173,7 +173,7 @@
                 </div>
             </div>
             <div class="input-box">
-                @Html.LabelFor(model => model.SecurityQuestion, "Güvenli kelimeniz")
+                @Html.LabelFor(model => model.SecurityQuestion, "Güvenli Kelimeniz")
                 @Html.EditorFor(model => model.SecurityQuestion, new { htmlAttributes = new { placeholder = "Güvenli Kelimeniz", @required = "required" } })
                 @Html.ValidationMessageFor(model => model.SecurityQuestion, "", new { @class = "text-danger" })
             </div>

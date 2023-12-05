@@ -4,63 +4,104 @@
     ViewBag.Title = "Exercise Programs";
 }
 
-<h2>User Exercise Programs</h2>
+<h2>EGZERSİZ PROGRAMLARIM</h2>
+
+<style>
+    body {
+        font-family: fantasy;
+        background: url('../img/equipment.jpg') center/cover no-repeat;
+    }
+     hr {
+        height: 5px; /* Kalınlık */
+        background-color: #0056b3; /* Renk */
+        border: none; /* Kenarlık yok */
+        margin: 20px 0; /* Yükseklik */
+    }
+    h2 {
+        color: black;
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    h5 {
+        font-size: 1.4rem;
+        color: #c850c0;
+    }
+
+    .card {
+        margin-bottom: 10px;
+    }
+
+    p {
+        text-align: center;
+        font-size: 20px;
+    }
+
+    .dl-horizontal {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+
+    dt {
+        font-weight: bold;
+    }
+
+    dd {
+        margin-left: 0;
+    }
+
+    a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+        a:hover {
+            color: #0056b3;
+        }
+</style>
 
 @if (Model != null && Model.Count > 0)
 {
     foreach (var exerciseProgram in Model)
     {
-        <div>
-            <dl class="dl-horizontal">
-                <dt>
-                    @Html.DisplayNameFor(model => exerciseProgram.ExerciseName)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => exerciseProgram.ExerciseName)
-                </dd>
-            </dl>
-        </div>
-        <div>
-            <dl class="dl-horizontal">
-                <dt>
-                    @Html.DisplayNameFor(model => exerciseProgram.SetNumber)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => exerciseProgram.SetNumber)
-                </dd>
-            </dl>
-        </div>
-        <div>
-            <dl class="dl-horizontal">
-                <dt>
-                    @Html.DisplayNameFor(model => exerciseProgram.RepeatNumber)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => exerciseProgram.RepeatNumber)
-                </dd>
-            </dl>
-        </div>
-        <div>
-            <dl class="dl-horizontal">
-                <dt>
-                    @Html.DisplayNameFor(model => exerciseProgram.VideoGuide)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => exerciseProgram.VideoGuide)
-                </dd>
-            </dl>
-        </div>
-        <div>
-            <dl class="dl-horizontal">
-                <dt>
-                    @Html.DisplayNameFor(model => exerciseProgram.ProgramDuration)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => exerciseProgram.ProgramDuration)
-                </dd>
-            </dl>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">@Html.DisplayNameFor(model => exerciseProgram.ExerciseName)</h5>
+                <p class="card-text">@Html.DisplayFor(model => exerciseProgram.ExerciseName)</p>
+            </div>
         </div>
 
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">@Html.DisplayNameFor(model => exerciseProgram.SetNumber)</h5>
+                <p class="card-text">@Html.DisplayFor(model => exerciseProgram.SetNumber)</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">@Html.DisplayNameFor(model => exerciseProgram.RepeatNumber)</h5>
+                <p class="card-text">@Html.DisplayFor(model => exerciseProgram.RepeatNumber)</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">@Html.DisplayNameFor(model => exerciseProgram.VideoGuide)</h5>
+                <p class="card-text">@Html.DisplayFor(model => exerciseProgram.VideoGuide)</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">@Html.DisplayNameFor(model => exerciseProgram.ProgramDuration)</h5>
+                <p class="card-text">@Html.DisplayFor(model => exerciseProgram.ProgramDuration)</p>
+            </div>
+        </div>
+
+        <hr />
+ <!-- Çizgi ekle -->
     }
 }
 else

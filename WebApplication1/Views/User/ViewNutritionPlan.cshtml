@@ -6,59 +6,94 @@
 
 <h2>User Nutrition Program</h2>
 
+<style>
+    body {
+        font-family: fantasy;
+        background: url('../img/equipment.jpg') center/cover no-repeat;
+    }
+
+    h2 {
+        color: black;
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    h5 {
+        font-size: 1.5rem;
+        color: #c850c0;
+        ;
+    }
+    .card {
+        margin-bottom: 20px;
+    }
+    p {
+        text-align: center;
+        FONT-SIZE: 20PX;
+    }
+    .dl-horizontal {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+
+    dt {
+        font-weight: boLD;
+    }
+
+    dd {
+        margin-left: 0;
+    }
+
+    p {
+        text-align: center;
+    }
+
+    a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+        a:hover {
+            color: #0056b3;
+        }
+</style>
+
 @if (Model != null)
 {
-    <div>
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.CalorieTarget)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.CalorieTarget)
-            </dd>
-        </dl>
-    </div>
-    <div>
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Breakfast)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Breakfast)
-            </dd>
-        </dl>
-    </div>
-    <div>
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Lunch)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Lunch)
-            </dd>
-        </dl>
-    </div>
-    <div>
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Snack)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Snack)
-            </dd>
-        </dl>
-    </div>
-    <div>
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Dinner)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Dinner)
-            </dd>
-        </dl>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">KALORİ HEDEFİ:</h5>
+            <p class="card-text">@Html.DisplayFor(model => model.CalorieTarget)</p>
+        </div>
     </div>
 
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">KAHVALTI:</h5>
+            <p class="card-text">@Html.DisplayFor(model => model.Breakfast)</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">ÖĞLEN:</h5>
+            <p class="card-text">@Html.DisplayFor(model => model.Lunch)</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">ARA ÖĞÜN:</h5>
+            <p class="card-text">@Html.DisplayFor(model => model.Snack)</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">AKŞAM:</h5>
+            <p class="card-text">@Html.DisplayFor(model => model.Dinner)</p>
+        </div>
+    </div>
 
     <p>
         @Html.ActionLink("Back to Profile", "Index", "User")

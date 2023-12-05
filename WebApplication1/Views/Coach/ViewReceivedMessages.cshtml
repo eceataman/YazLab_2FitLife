@@ -4,28 +4,85 @@
     ViewBag.Title = "Received Messages";
 }
 
-<h2>Received Messages</h2>
-
-@if (Model != null && Model.Any())
-{
-    <table class="table">
-        <tr>
-            <th>Sender</th>
-            <th>Content</th>
-            <th>Sent At</th>
-        </tr>
-
-        @foreach (var message in Model)
-        {
-            <tr>
-                <td>@message.MessageID</td>
-                <td>@message.Content</td>
-               
-            </tr>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title>Received Messages</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: fantasy;
+            background: url('../img/Workout.jpg') center/cover no-repeat;
         }
-    </table>
-}
-else
-{
-    <p>No received messages.</p>
-}
+
+        h2 {
+            color: black;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4158d0;
+            color: black;
+        }
+
+        td {
+            color: #262626;
+        }
+
+        p {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #262626;
+        }
+
+            p.no-messages {
+                color: #999999;
+            }
+    </style>
+</head>
+<body>
+    <h2>Gelen Kutusu</h2>
+
+    @if (Model != null && Model.Any())
+    {
+        <table class="table">
+            <tr>
+                <th>Sender</th>
+                <th>Content</th>
+                <th>Sent At</th>
+            </tr>
+
+            @foreach (var message in Model)
+            {
+                <tr>
+                    <td>@message.MessageID</td>
+                    <td>@message.Content</td>
+                    <!-- Add the appropriate property for the sent time -->
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p class="no-messages">No received messages.</p>
+    }
+
+    <div>
+        @Html.ActionLink("Profile Dön", "Profile", "Coach")
+    </div>
+</body>
+</html>
+``

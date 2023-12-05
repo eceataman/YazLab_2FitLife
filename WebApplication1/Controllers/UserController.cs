@@ -570,6 +570,60 @@ namespace WebApplication1.Controllers
 
             return RedirectToAction("Index");
         }
-        
+        public ActionResult SaveProgress()
+        {
+            // Check if the user is logged in
+            if (Session["CurrentUser"] != null)
+            {
+                // Get the current user from the session
+                User currentUser = (User)Session["CurrentUser"];
+
+                // You can create a model to represent progress or use ViewBag/ViewData
+                // For simplicity, let's use ViewBag here
+                ViewBag.CurrentUserId = currentUser.UserId;
+
+                // Add any other necessary data to ViewBag or ViewData
+
+                return View();
+            }
+            else
+            {
+                // Redirect to login if the user is not logged in
+                return RedirectToAction("Login");
+            }
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SaveProgressAction(User userModel)
+        {
+            if (ModelState.IsValid)
+            {
+                // Retrieve the current user from the database
+                using (Model1 dbModel = new Model1())
+                {
+                    User currentUser = dbModel.Users.Find(userModel.UserId);
+
+                    if (currentUser != null)
+                    {
+                        // Save progress data to the database
+                        // Example: currentUser.Progress = userModel.Progress;
+
+                        // Save changes to the database
+                        dbModel.Entry(currentUser).State = EntityState.Modified;
+                        dbModel.SaveChanges();
+
+                        ViewBag.SuccessMessage = "Progress saved successfully";
+                    }
+                    else
+                    {
+                        ViewBag.ErrorMessage = "User not found";
+                    }
+                }
+            }
+
+            // Redirect to the SaveProgress view to display any messages
+            return View("SaveProgress");
+        }
+
     }
 }

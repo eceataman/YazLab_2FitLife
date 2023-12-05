@@ -4,64 +4,144 @@
     ViewBag.Title = "Add Nutrition Plan";
 }
 
-<h2>Add Nutrition Plan</h2>
+<h2>BESLENME PLANI</h2>
+<style>
+    body {
+        font-family: fantasy;
+        background: url('../img/fitness.jpg') center/cover no-repeat;
+    }
 
+    h2 {
+        color: black;
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    .form-horizontal {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
+        margin: 20px auto;
+        width: 60%;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        font-weight: bold;
+        color: #262626;
+    }
+
+    .control-label {
+        font-weight: bold;
+        color: #262626;
+    }
+
+    .col-md-10 {
+        border-radius: 15px;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+        border: 1px solid #ced4da;
+        border-radius: 5px;
+    }
+
+    .text-danger {
+        color: #dc3545;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: #ffffff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+    .col-md-offset-2 {
+        margin-left: 16.66666667%;
+    }
+
+    /* Yeni eklenen stil öğeleri */
+    table {
+        margin: 0 auto; /* Tabloyu merkeze hizala */
+    }
+
+    input[type="submit"] {
+        display: block;
+        margin: 0 auto; /* Düğmeyi merkeze hizala */
+    }
+</style>
 @using (Html.BeginForm("AddNutritionPlan", "Coach", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
     @Html.HiddenFor(model => model.UserId)
 
-<div class="form-horizontal">
-    <!-- Add input fields for the nutrition plan information -->
-    <div class="form-group">
-        @Html.LabelFor(model => model.CalorieTarget, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.CalorieTarget, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.CalorieTarget, "", new { @class = "text-danger" })
+    <div class="form-horizontal">
+        <!-- Add input fields for the nutrition plan information -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.CalorieTarget, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CalorieTarget, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CalorieTarget, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Breakfast, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Breakfast, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Breakfast, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Breakfast, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Breakfast, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Breakfast, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Snack, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Snack, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Snack, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Snack, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Snack, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Snack, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.Lunch, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Lunch, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Lunch, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Lunch, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Lunch, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Lunch, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.Dinner, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Dinner, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Dinner, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Dinner, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Dinner, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Dinner, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <!-- Add similar form fields for Lunch, Dinner, and other properties -->
+        <!-- Add similar form fields for Lunch, Dinner, and other properties -->
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Add Nutrition Plan" class="btn btn-primary" />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Add Nutrition Plan" class="btn btn-primary" />
+            </div>
         </div>
     </div>
-</div>
 }
 
 <div>
     @ViewBag.SuccessMessage
+</div>
+<div>
+    @Html.ActionLink("Profile Dön", "Profile", "Coach")
 </div>

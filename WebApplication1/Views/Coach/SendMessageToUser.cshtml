@@ -4,25 +4,95 @@
     ViewBag.Title = "Send Message to User";
 }
 
-<h2>Send Message to User: @ViewBag.UserName</h2>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title>Send Message to User</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: fantasy;
+            background: url('../img/Workout.jpg') center/cover no-repeat;
+        }
 
-@if (ViewBag.ErrorMessage != null)
-{
-    <p style="color: red;">@ViewBag.ErrorMessage</p>
-}
+        h2 {
+            color: white;
+            text-align: center;
+            margin-top: 50px;
+        }
 
-@if (ViewBag.SuccessMessage != null)
-{
-    <p style="color: green;">@ViewBag.SuccessMessage</p>
-}
+        label {
+            font-weight: bold;
+            color: #262626;
+            display: block;
+            margin-bottom: 10px;
+        }
 
-@using (Html.BeginForm())
-{
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+
+        input[type="submit"] {
+            background-color: #c850c0;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+            input[type="submit"]:hover {
+                background-color: #ad3a8f;
+            }
+
+            input[type="submit"]:active {
+                transform: scale(0.95);
+            }
+
+        p {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+            p.success {
+                color: green;
+            }
+
+            p.error {
+                color: red;
+            }
+    </style>
+</head>
+<body>
+    <h2>Mesaj Gönderilecek Kullanıcı: @ViewBag.UserName</h2>
+
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <p class="error">@ViewBag.ErrorMessage</p>
+    }
+
+    @if (ViewBag.SuccessMessage != null)
+    {
+        <p class="success">@ViewBag.SuccessMessage</p>
+    }
+
+    @using (Html.BeginForm())
+    {
+        <div>
+            <label for="messageContent">Message:</label>
+            <textarea id="messageContent" name="messageContent" rows="4" cols="50" required></textarea>
+        </div>
+        <div>
+            <input type="submit" value="Mesaj Gönder" />
+        </div>
+    }
+
     <div>
-        <label for="messageContent">Message:</label>
-        <textarea id="messageContent" name="messageContent" rows="4" cols="50" required></textarea>
+        @Html.ActionLink("Profile Dön", "Profile", "Coach")
     </div>
-    <div>
-        <input type="submit" value="Send Message" />
-    </div>
-}
+</body>
+</html>

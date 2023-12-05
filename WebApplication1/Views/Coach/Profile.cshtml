@@ -29,7 +29,7 @@
             border-radius: 15px;
             box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
             margin: 20px auto;
-            width: 60%;
+            width: 90%;
         }
 
         .form-group {
@@ -52,7 +52,7 @@
 
         .btn-default {
             background-color: #4158d0;
-            color: white;
+            color: black; /* Changed text color to black */
             border: none;
             padding: 10px 20px;
             border-radius: 5px;
@@ -73,12 +73,12 @@
 
         th {
             background-color: #4158d0;
-            color: white;
+            color: black;
         }
 
         a.btn-primary {
             background-color: #c850c0;
-            color: white;
+            color: black; /* Changed text color to black */
             padding: 8px 12px;
             border-radius: 5px;
             text-decoration: none;
@@ -101,104 +101,109 @@
     {
         @Html.AntiForgeryToken()
 
-        <div class="form-horizontal">
-            <!-- Add input fields for updating coach's information -->
-            <div class="form-group">
-                @Html.LabelFor(model => model.CoachName, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.CoachName, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.CoachName, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.CoachSurname, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.CoachSurname, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.CoachSurname, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.CoachMail, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.CoachMail, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.CoachMail, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.CoachPhone, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.CoachPhone, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.CoachPhone, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-
-            <p>Assigned Users:</p>
-
-            @if (Model.AssignedUsers != null && Model.AssignedUsers.Any())
-            {
-                <table class="table">
-                    <tr>
-                        <th>User ID</th>
-                        <th>User Name</th>
-                        <th>User Surname</th>
-                        <th>Egzersiz Ekle</th>
-                        <!-- Add other user properties as needed -->
-                    </tr>
-
-                    @foreach (var user in Model.AssignedUsers)
-                    {
-                        <tr>
-                            <td>@user.UserId</td>
-                            <td>@user.UserName</td>
-                            <td>@user.UserSurname</td>
-                            <td>
-                                    <<div class="form-group">
-                                        <div class="col-md-offset-2 col-md-10">
-                                            <a href="@Url.Action("AddExerciseProgram", "Coach", new { userId = user.UserId })" class="btn btn-primary">Add Exercise Program for @user.UserName</a>
-                                        </div>
-                                    </div>
-                            </td>
-                            <!-- Display other user properties as needed -->
-                        </tr>
-                    }
-                </table>
-            }
-            else
-            {
-                <p>No assigned users.</p>
-            }
-
-            <!-- Add other input fields as needed -->
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Update Profile" class="btn btn-default" />
-                </div>
-            </div>
+<div class="form-horizontal">
+    <!-- Add input fields for updating coach's information -->
+    <div class="form-group">
+        <label for="CoachName" class="control-label col-md-2">Antrenör Adı</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.CoachName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.CoachName, "", new { @class = "text-danger" })
         </div>
-        if (Model.AssignedUsers != null && Model.AssignedUsers.Any())
-        {
-            foreach (var user in Model.AssignedUsers)
+    </div>
+
+    <div class="form-group">
+        <label for="CoachSurname" class="control-label col-md-2">Antrenör Soyadı</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.CoachSurname, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.CoachSurname, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="CoachMail" class="control-label col-md-2">Antrenör E-Posta</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.CoachMail, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.CoachMail, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="CoachPhone" class="control-label col-md-2">Antrenör Telefon</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.CoachPhone, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.CoachPhone, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <!-- Update: Moved the table inside the form -->
+    <p>Eşleşen Kullanıcılar:</p>
+    @if (Model.AssignedUsers != null && Model.AssignedUsers.Any())
+    {
+        <table class="table">
+            <tr>
+                <th>Kullanıcı ID</th>
+                <th>Kullanıcı  Ad</th>
+                <th>Kullanıcı Soyad</th>
+                <th>Egzersiz</th>
+                <th>Beslenme Programı</th>
+                <th>Mesaj </th>
+                <th>Gelen Kutusu</th>
+                <!-- Add other user properties as needed -->
+            </tr>
+
+            @foreach (var user in Model.AssignedUsers)
             {
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <a href="@Url.Action("SendMessageToUser", "Coach", new { userId = user.UserId })" class="btn btn-primary">Send Message to @user.UserName</a>
-
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <a href="@Url.Action("AddNutritionPlan", "Coach", new { userId = user.UserId })" class="btn btn-primary">Add Nutrition Program for @user.UserName</a>
-                    </div>
-
-                </div>
+                <tr>
+                    <td>@user.UserId</td>
+                    <td>@user.UserName</td>
+                    <td>@user.UserSurname</td>
+                    <td>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <a href="@Url.Action("AddExerciseProgram", "Coach", new { userId = user.UserId })" class="btn btn-primary">Egzersiz Ekle</a>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <a href="@Url.Action("AddNutritionPlan", "Coach", new { userId = user.UserId })" class="btn btn-primary">Beslenme Programı Ekle</a>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <a href="@Url.Action("SendMessageToUser", "Coach", new { userId = user.UserId })" class="btn btn-primary">Mesaj Gönder</a>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <a href="@Url.Action("ViewReceivedMessages", "Coach")" class="btn btn-primary">Gelen Mesajları Görüntüle</a>
+                            </div>
+                        </div>
+                    </td>
+                    <!-- Display other user properties as needed -->
+                </tr>
             }
-        }
-
+        </table>
     }
-    <a href="@Url.Action("ViewReceivedMessages", "Coach")" class="btn btn-primary">View Received Messages</a>
+    else
+    {
+        <p>No assigned users.</p>
+    }
 
+    <!-- Add other input fields as needed -->
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Update Profile" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+    }
 
     <div>
         @ViewBag.SuccessMessage

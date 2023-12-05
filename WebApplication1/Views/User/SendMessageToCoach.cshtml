@@ -1,21 +1,89 @@
 ﻿@{ ViewBag.Title = "Send Message to Coach"; }
 
-<h2>Send Message to Coach</h2>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title>Send Message to Coach</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: fantasy;
+            background: url('../img/fitnes2.jpg') center/cover no-repeat; /* Your background image path */
+        }
 
-@if (ViewBag.ErrorMessage != null)
-{
-<div class="alert alert-danger">@ViewBag.ErrorMessage</div>}
+        h2 {
+            color: white;
+            text-align: center;
+            margin-top: 50px;
+        }
 
-@using (Html.BeginForm("SendMessageToCoachAction", "User", FormMethod.Post))
-{
-@Html.AntiForgeryToken()
+        .alert {
+            margin-top: 20px;
+        }
 
-                <div class="form-group">
-                    <label for="content">Message Content:</label>
-                    <textarea class="form-control" name="content" required></textarea>
-                </div>
+        .form-group {
+            display: grid;
+            margin-bottom: 10px;
+            justify-content: space-around;
+        }
 
-                                <input type="hidden" name="receiverID" value="@ViewBag.CoachID" />
+        label {
+            text-align: center;
+            color: white;
+            display: block;
+            margin-bottom: 10px;
+        }
 
-                                                <button type="submit" class="btn btn-primary">Send Message</button>
-}
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            margin-bottom: 20px;
+            resize: vertical;
+            height: 200px; /* Değişiklik: Yükseklik belirtildi */
+        }
+
+        input[type="submit"] {
+            background-color: #4158d0;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+            input[type="submit"]:hover {
+                background-color: #34409b;
+            }
+
+            input[type="submit"]:active {
+                transform: scale(0.95);
+            }
+    </style>
+</head>
+<body>
+    <h2>Antrenöre Mesaj Gönder</h2>
+
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <div class="alert alert-danger">@ViewBag.ErrorMessage</div>
+    }
+
+    @using (Html.BeginForm("SendMessageToCoachAction", "User", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+           
+            <textarea class="form-control" name="content" required></textarea>
+        </div>
+
+        <input type="hidden" name="receiverID" value="@ViewBag.CoachID" />
+
+        <div style="text-align: center;">
+            <button type="submit" class="btn btn-primary">Mesaj Gönder</button>
+        </div>
+    }
+</body>
+</html>
