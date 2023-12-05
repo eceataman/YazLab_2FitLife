@@ -71,9 +71,6 @@ namespace WebApplication1.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-
-
-        
         public ActionResult SaveC(User userModel, HttpPostedFileBase UserPhotoFile)
         {
             if (ModelState.IsValid)

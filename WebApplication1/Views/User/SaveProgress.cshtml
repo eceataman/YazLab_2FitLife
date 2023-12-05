@@ -1,16 +1,14 @@
 ﻿@model WebApplication1.Models.Progress
 
-@{
-    ViewBag.Title = "Save Progress";
-}
+@{ ViewBag.Title = "Save Progress"; }
 <style>
     body {
         font-family: fantasy;
-        background: url('../img/arka.jpg') center/cover no-repeat;
+        background: url('../img/xxx.jpg') center/cover no-repeat;
     }
 
     h2 {
-        color: black;
+        color: black; /* Change text color to white */
         text-align: center;
         margin-top: 50px;
     }
@@ -20,7 +18,6 @@
     }
 
     label {
-       
         color: #ffffff;
     }
 
@@ -38,16 +35,16 @@
 
     .btn-primary {
         background-color: #007bff;
-        color: #ffffff;
+        color: black;
         border: none;
         padding: 10px 20px;
         border-radius: 5px;
         cursor: pointer;
     }
 
-    .btn-primary:hover {
-        background-color: #0056b3;
-    }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
 
     .form-horizontal {
         background-color: #fff;
@@ -73,7 +70,6 @@
 </style>
 
 <h2>İLERLEMENİZİ KAYDEDİN</h2>
-
 @using (Html.BeginForm("SaveProgressAction", "User", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
@@ -81,29 +77,26 @@
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
     <div class="form-group">
-        @Html.LabelFor(model => model.UserHeight)
+        @Html.LabelFor(model => model.UserHeight, "BOY:")
         @Html.EditorFor(model => model.UserHeight, new { htmlAttributes = new { @class = "form-control", type = "number", step = "0.01" } })
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.UserWeight)
+        @Html.LabelFor(model => model.UserWeight, "KİLO:")
         @Html.EditorFor(model => model.UserWeight, new { htmlAttributes = new { @class = "form-control", type = "number", step = "0.01" } })
     </div>
     <div class="form-group">
-        @Html.LabelFor(model => model.UserMuscle)
+        @Html.LabelFor(model => model.UserMuscle, "KAS ORANI:")
         @Html.EditorFor(model => model.UserMuscle, new { htmlAttributes = new { @class = "form-control", type = "number", step = "0.01" } })
     </div>
     <div class="form-group">
-        @Html.LabelFor(model => model.UserFat)
+        @Html.LabelFor(model => model.UserFat, "YAĞ ORANI:")
         @Html.EditorFor(model => model.UserFat, new { htmlAttributes = new { @class = "form-control", type = "number", step = "0.01" } })
     </div>
-        <div class="form-group">
-        @Html.LabelFor(model => model.UserBMI)
+    <div class="form-group">
+        @Html.LabelFor(model => model.UserBMI, "VÜCUT KİTLE İNDEKSİ:")
         @Html.EditorFor(model => model.UserBMI, new { htmlAttributes = new { @class = "form-control", type = "number", step = "0.01" } })
     </div>
-
-    
-    <!-- Repeat the above code for other properties -->
 
     <button type="submit" class="btn btn-primary">KAYDET</button>
 }

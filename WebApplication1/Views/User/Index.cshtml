@@ -21,6 +21,10 @@
             transition: background-color .5s;
         }
 
+        .card-title {
+            color: #4158d0;
+
+        }
         .card {
             margin: 20px auto;
             max-width: 540px;
@@ -55,8 +59,10 @@
             color: linear-gradient(-135deg, #c850c0, #4158d0);
         }
 
+
         h2 {
-            color: linear-gradient(-135deg, #c850c0, #4158d0);
+            margin: 1.5rem;
+            font-size: 2rem;
         }
 
         input[type="submit"] {
@@ -147,7 +153,7 @@
 
 
     <div id="main">
-        <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+        <span style="font-size: 30px;cursor:pointer;color: white;" onclick="openNav()">&#9776;</span>
     </div>
 
     <script>
@@ -193,13 +199,9 @@ else
 
                 <div class="card mb-3">
                     <form action="@Url.Action("SaveTarget", "User")" method="post">
-                        <label for="goal">Select Your Goal:</label>
-                        <select name="goal" id="goal">
-                            <option value="Kilo Aldirma">Kilo Alma</option>
-                            <option value="Kilo Verdirme">Kilo Verme</option>
-                            <option value="Kilo Koruma">Kilo Koruma</option>
-                            <option value="Kas Kazanma">Kas Kazanma</option>
-                        </select>
+                        <label for="goal">HEDEFİNİ SEÇ:</label>
+
+                        @Html.DropDownList("goal", ViewBag.GoalList as SelectList, "Select a Goal", new { @class = "form-control" })
                         <input type="submit" value="Hedef Kaydet" />
                     </form>
                 </div> }

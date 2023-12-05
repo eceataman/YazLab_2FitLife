@@ -204,8 +204,8 @@ namespace WebApplication1.Controllers
 
             return View(newNutritionPlan);
         }
-        
-        
+
+
         public ActionResult SendMessageToUser(int userId)
         {
             // Ensure the coach is logged in
@@ -246,6 +246,9 @@ namespace WebApplication1.Controllers
                 return View();
             }
         }
+
+
+
 
         public ActionResult ViewReceivedMessages()
         {

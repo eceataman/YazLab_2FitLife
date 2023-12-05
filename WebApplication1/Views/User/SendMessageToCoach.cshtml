@@ -1,14 +1,15 @@
-﻿@{ ViewBag.Title = "Send Message to Coach"; }
+﻿@{ ViewBag.Title = "Antrenöre Mesaj Gönder"; }
 
 <html lang="en" dir="ltr">
 <head>
     <meta charset="utf-8">
-    <title>Send Message to Coach</title>
+    <title>Antrenöre Mesaj Gönder</title>
     <link rel="stylesheet" href="style.css">
     <style>
         body {
             font-family: fantasy;
-            background: url('../img/fitnes2.jpg') center/cover no-repeat; /* Your background image path */
+            /* Arka plan resmi yolu */
+            background: url('../img/xxx.jpg') center/cover no-repeat;
         }
 
         h2 {
@@ -17,49 +18,56 @@
             margin-top: 50px;
         }
 
-        .alert {
+        table {
+            width: 100%;
             margin-top: 20px;
+            border-collapse: collapse;
         }
 
-        .form-group {
-            display: grid;
-            margin-bottom: 10px;
-            justify-content: space-around;
-        }
-
-        label {
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
             text-align: center;
+        }
+
+        th {
+            background-color: #4158d0;
+            color: black;
+        }
+
+        td {
             color: white;
-            display: block;
-            margin-bottom: 10px;
+        }
+
+        p {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #262626;
+        }
+
+            p.no-messages {
+                color: #999999;
+            }
+
+        /* Form ve textarea için güncellenmiş stiller */
+        form {
+            text-align: center;
+            margin-top: 20px;
         }
 
         textarea {
             width: 100%;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            margin-bottom: 20px;
-            resize: vertical;
-            height: 200px; /* Değişiklik: Yükseklik belirtildi */
+            height: 300px; /* İhtiyaca göre yüksekliği ayarlayın */
+            margin: 0 auto; /* Textarea'yı ortalamak için */
+            display: block;
+            resize: none; /* Textarea'nın boyutunu değiştirmeyi devre dışı bırak */
         }
-
-        input[type="submit"] {
-            background-color: #4158d0;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+            textarea.form-control {
+                height: 300px;
+            }
+        .btn-primary {
+            margin-top: 10px;
         }
-
-            input[type="submit"]:hover {
-                background-color: #34409b;
-            }
-
-            input[type="submit"]:active {
-                transform: scale(0.95);
-            }
     </style>
 </head>
 <body>
@@ -75,7 +83,6 @@
         @Html.AntiForgeryToken()
 
         <div class="form-group">
-           
             <textarea class="form-control" name="content" required></textarea>
         </div>
 

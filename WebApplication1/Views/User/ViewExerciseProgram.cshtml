@@ -11,12 +11,14 @@
         font-family: fantasy;
         background: url('../img/equipment.jpg') center/cover no-repeat;
     }
-     hr {
+
+    hr {
         height: 5px; /* Kalınlık */
         background-color: #0056b3; /* Renk */
         border: none; /* Kenarlık yok */
         margin: 20px 0; /* Yükseklik */
     }
+
     h2 {
         color: black;
         text-align: center;
@@ -29,7 +31,10 @@
     }
 
     .card {
-        margin-bottom: 10px;
+        margin-bottom: 20px;
+        width: 60%; /* Set the width to 50% */
+        margin-left: auto; /* Center the card horizontally */
+        margin-right: auto;
     }
 
     p {
@@ -60,53 +65,52 @@
             color: #0056b3;
         }
 </style>
-
 @if (Model != null && Model.Count > 0)
 {
     foreach (var exerciseProgram in Model)
     {
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">@Html.DisplayNameFor(model => exerciseProgram.ExerciseName)</h5>
+                <h5 class="card-title">Egzersiz Adı</h5>
                 <p class="card-text">@Html.DisplayFor(model => exerciseProgram.ExerciseName)</p>
             </div>
         </div>
 
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">@Html.DisplayNameFor(model => exerciseProgram.SetNumber)</h5>
+                <h5 class="card-title">Set Sayısı</h5>
                 <p class="card-text">@Html.DisplayFor(model => exerciseProgram.SetNumber)</p>
             </div>
         </div>
 
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">@Html.DisplayNameFor(model => exerciseProgram.RepeatNumber)</h5>
+                <h5 class="card-title">Tekrar Sayısı</h5>
                 <p class="card-text">@Html.DisplayFor(model => exerciseProgram.RepeatNumber)</p>
             </div>
         </div>
 
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">@Html.DisplayNameFor(model => exerciseProgram.VideoGuide)</h5>
+                <h5 class="card-title">Video Rehberi</h5>
                 <p class="card-text">@Html.DisplayFor(model => exerciseProgram.VideoGuide)</p>
             </div>
         </div>
 
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">@Html.DisplayNameFor(model => exerciseProgram.ProgramDuration)</h5>
+                <h5 class="card-title">Program Süresi</h5>
                 <p class="card-text">@Html.DisplayFor(model => exerciseProgram.ProgramDuration)</p>
             </div>
         </div>
 
         <hr />
- <!-- Çizgi ekle -->
     }
 }
+
 else
 {
-    <p>No exercise programs found.</p>
+<p>No exercise programs found.</p>
 }
 
 <p>
