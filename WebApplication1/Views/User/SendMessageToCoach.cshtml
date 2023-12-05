@@ -1,0 +1,21 @@
+﻿@{ ViewBag.Title = "Send Message to Coach"; }
+
+<h2>Send Message to Coach</h2>
+
+@if (ViewBag.ErrorMessage != null)
+{
+<div class="alert alert-danger">@ViewBag.ErrorMessage</div>}
+
+@using (Html.BeginForm("SendMessageToCoachAction", "User", FormMethod.Post))
+{
+@Html.AntiForgeryToken()
+
+                <div class="form-group">
+                    <label for="content">Message Content:</label>
+                    <textarea class="form-control" name="content" required></textarea>
+                </div>
+
+                                <input type="hidden" name="receiverID" value="@ViewBag.CoachID" />
+
+                                                <button type="submit" class="btn btn-primary">Send Message</button>
+}

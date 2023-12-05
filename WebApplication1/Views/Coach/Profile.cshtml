@@ -4,107 +4,204 @@
     ViewBag.Title = "Profile";
 }
 
-<h2>Profile</h2>
 
-@using (Html.BeginForm("UpdateProfile", "Coach", FormMethod.Post))
-{
-    @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <!-- Add input fields for updating coach's information -->
-        <div class="form-group">
-            @Html.LabelFor(model => model.CoachName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CoachName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CoachName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.CoachSurname, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CoachSurname, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CoachSurname, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.CoachMail, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CoachMail, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CoachMail, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.CoachPhone, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CoachPhone, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CoachPhone, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <h2>Welcome, @Model.CoachName!</h2>
-
-        <p>Assigned Users:</p>
-
-        @if (Model.AssignedUsers != null && Model.AssignedUsers.Any())
-        {
-            <table class="table">
-                <tr>
-                    <th>User ID</th>
-                    <th>User Name</th>
-                    <th>User Surname</th>
-                    <th>Egzersiz Ekle</th>
-                    <!-- Add other user properties as needed -->
-                </tr>
-
-                @foreach (var user in Model.AssignedUsers)
-                {
-                    <tr>
-                        <td>@user.UserId</td>
-                        <td>@user.UserName</td>
-                        <td>@user.UserSurname</td>
-                        <td>
-                            <<div class="form-group">
-                                <div class="col-md-offset-2 col-md-10">
-                                    <a href="@Url.Action("AddExerciseProgram", "Coach", new { userId = user.UserId })" class="btn btn-primary">Add Exercise Program for @user.UserName</a>
-                                </div>
-                            </div>
-                        </td>
-                        <!-- Display other user properties as needed -->
-                    </tr>
-                }
-            </table>
-        }
-        else
-        {
-            <p>No assigned users.</p>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title>COACH</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: fantasy;
+            background: url('../img/fitness.jpg') center/cover no-repeat;
         }
 
-        <!-- Add other input fields as needed -->
+        h2 {
+            color: black;
+            text-align: center;
+            margin-top: 50px;
+        }
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Update Profile" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-    if (Model.AssignedUsers != null && Model.AssignedUsers.Any())
+        .form-horizontal {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            width: 60%;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #262626;
+        }
+
+        .control-label {
+            font-weight: bold;
+            color: #262626;
+        }
+
+        .col-md-10 {
+            border-radius: 15px;
+        }
+
+        .btn-default {
+            background-color: #4158d0;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4158d0;
+            color: white;
+        }
+
+        a.btn-primary {
+            background-color: #c850c0;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            background-color: #ad3a8f;
+        }
+
+        .btn-primary:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body>
+    <h2>HOŞ GELDİN @Model.CoachName!</h2>
+
+    @using (Html.BeginForm("UpdateProfile", "Coach", FormMethod.Post))
     {
-        foreach (var user in Model.AssignedUsers)
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <!-- Add input fields for updating coach's information -->
+            <div class="form-group">
+                @Html.LabelFor(model => model.CoachName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CoachName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CoachName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.CoachSurname, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CoachSurname, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CoachSurname, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.CoachMail, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CoachMail, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CoachMail, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.CoachPhone, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CoachPhone, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CoachPhone, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <p>Assigned Users:</p>
+
+            @if (Model.AssignedUsers != null && Model.AssignedUsers.Any())
+            {
+                <table class="table">
+                    <tr>
+                        <th>User ID</th>
+                        <th>User Name</th>
+                        <th>User Surname</th>
+                        <th>Egzersiz Ekle</th>
+                        <!-- Add other user properties as needed -->
+                    </tr>
+
+                    @foreach (var user in Model.AssignedUsers)
+                    {
+                        <tr>
+                            <td>@user.UserId</td>
+                            <td>@user.UserName</td>
+                            <td>@user.UserSurname</td>
+                            <td>
+                                    <<div class="form-group">
+                                        <div class="col-md-offset-2 col-md-10">
+                                            <a href="@Url.Action("AddExerciseProgram", "Coach", new { userId = user.UserId })" class="btn btn-primary">Add Exercise Program for @user.UserName</a>
+                                        </div>
+                                    </div>
+                            </td>
+                            <!-- Display other user properties as needed -->
+                        </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                <p>No assigned users.</p>
+            }
+
+            <!-- Add other input fields as needed -->
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Update Profile" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+        if (Model.AssignedUsers != null && Model.AssignedUsers.Any())
         {
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <a href="@Url.Action("AddExerciseProgram", "Coach", new { userId = user.UserId })" class="btn btn-primary">Add Exercise Program for @user.UserName</a>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <a href="@Url.Action("AddNutritionPlan", "Coach", new { userId = user.UserId })" class="btn btn-primary">Add Nutrition Program for @user.UserName</a>
-                </div>
+            foreach (var user in Model.AssignedUsers)
+            {
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <a href="@Url.Action("SendMessageToUser", "Coach", new { userId = user.UserId })" class="btn btn-primary">Send Message to @user.UserName</a>
 
-            </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <a href="@Url.Action("AddNutritionPlan", "Coach", new { userId = user.UserId })" class="btn btn-primary">Add Nutrition Program for @user.UserName</a>
+                    </div>
+
+                </div>
+            }
         }
-    }
-}
 
-<div>
-    @ViewBag.SuccessMessage
-</div>
+    }
+    <a href="@Url.Action("ViewReceivedMessages", "Coach")" class="btn btn-primary">View Received Messages</a>
+
+
+    <div>
+        @ViewBag.SuccessMessage
+    </div>
+</body>
+</html>

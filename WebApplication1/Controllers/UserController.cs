@@ -88,8 +88,28 @@ namespace WebApplication1.Controllers
                         userModel.RecordStatus = 1;
                         if (UserPhotoFile != null && UserPhotoFile.ContentLength > 0)
                         {
-                            // ... Resim dosyasını kaydetme işlemleri (önceki kodun devamı) ...
+                            // Resim dosyasını kaydetmek için kullanılacak klasörü belirleyin
+                            string uploadFolderPath = Server.MapPath("~/Uploads");
+
+                            // Eğer klasör yoksa, oluşturun
+                            if (!Directory.Exists(uploadFolderPath))
+                            {
+                                Directory.CreateDirectory(uploadFolderPath);
+                            }
+
+                            // Resim dosyasını kaydetmek için dosya adını belirleyin
+                            string fileName = Path.GetFileName(UserPhotoFile.FileName);
+
+                            // Dosya yolunu belirleyin
+                            string filePath = Path.Combine(uploadFolderPath, fileName);
+
+                            // Resim dosyasını kaydedin
+                            UserPhotoFile.SaveAs(filePath);
+
+                            // UserModel içindeki UserPhoto özelliğini güncelleyin
+                            userModel.UserPhoto = "~/Uploads/" + fileName; // Dosya yolunu UserModel'e ekleyin
                         }
+
 
                         // Yeni bir kullanıcı ekleniyor
                         dbModel.Users.Add(userModel);
@@ -117,15 +137,14 @@ namespace WebApplication1.Controllers
             return View("AddOrEdit", new User());
         }
 
-        // Parolayı hash'leyen yardımcı fonksiyon
+      
         private string HashPassword(string password)
         {
             using (SHA256 sha256 = SHA256.Create())
             {
-                // Parolayı byte dizisine çevir
+               
                 byte[] hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
 
-                // Byte dizisini string olarak dönüştür
                 StringBuilder stringBuilder = new StringBuilder();
                 for (int i = 0; i < hashedBytes.Length; i++)
                 {
@@ -159,9 +178,6 @@ namespace WebApplication1.Controllers
             {
                 using (Model1 dbModel = new Model1())
                 {
-                    // Diğer güncelleme işlemleri burada...
-
-                    // Fotoğraf güncelleme işlemi
                     if (UserPhotoFile != null && UserPhotoFile.ContentLength > 0)
                     {
                         string uploadFolderPath = Server.MapPath("~/Uploads");
@@ -178,8 +194,6 @@ namespace WebApplication1.Controllers
 
                         userModel.UserPhoto = "~/Uploads/" + fileName;
                     }
-
-                    // Diğer güncelleme işlemleri burada...
 
                     dbModel.Entry(userModel).State = EntityState.Modified;
                     dbModel.SaveChanges();
@@ -298,6 +312,7 @@ namespace WebApplication1.Controllers
             return View(loginModel);
         }
 
+        
         [HttpPost]
         public ActionResult SaveTarget(int goal)
         {
@@ -310,17 +325,17 @@ namespace WebApplication1.Controllers
                 using (Model1 dbModel = new Model1())
                 {
 
-                    var user = dbModel.Users.FirstOrDefault(u => u.UserId == currentUser.UserId );
+                    var user = dbModel.Users.FirstOrDefault(u => u.UserId == currentUser.UserId);
 
                     user.TargetId = goal;
-                    
-                    int affectedRows=dbModel.SaveChanges();
+
+                    int affectedRows = dbModel.SaveChanges();
 
                     if (affectedRows > 0)
                     {
 
-                                
-                            var coaches =    dbModel.Coaches.FirstOrDefault(x=>x.TargetId==goal && x.CoachQuota>0 );
+
+                        var coaches = dbModel.Coaches.FirstOrDefault(x => x.TargetId == goal && x.CoachQuota > 0);
 
                         coaches.CoachQuota--;
                         user.CoachId = coaches.CoachId;
@@ -345,6 +360,7 @@ namespace WebApplication1.Controllers
             }
         }
 
+
         [HttpPost]
         public ActionResult ForgotPassword(User userModel)
         {
@@ -356,18 +372,16 @@ namespace WebApplication1.Controllers
 
                     if (user != null)
                     {
-                        // Set the new password for the user
                         user.UserPass = HashPassword(userModel.UserPass);
 
-                        // Check if the entity is not already in a modified state
+                        
                         if (dbModel.Entry(user).State == EntityState.Detached)
                         {
-                            // If detached, attach the entity and mark it as modified
                             dbModel.Users.Attach(user);
                             dbModel.Entry(user).State = EntityState.Modified;
                         }
 
-                        // Save changes to the database
+                       
                         dbModel.SaveChanges();
 
                         Session["CurrentUser"] = user;
@@ -484,8 +498,78 @@ namespace WebApplication1.Controllers
                 }
             }
         }
+        public ActionResult SendMessageToCoach()
+        {
+            // Kullanıcı giriş yapmış mı kontrol et
+            if (Session["CurrentUser"] != null)
+            {
+                // Aktif kullanıcıyı al
+                User currentUser = (User)Session["CurrentUser"];
+
+                // Eğer kullanıcının antrenörü yoksa, hata mesajı göster veya yönlendirme yap
+                if (currentUser.CoachId == null)
+                {
+                    ViewBag.ErrorMessage = "You don't have a coach assigned. Please contact the admin.";
+                    return RedirectToAction("Index");
+                }
+
+                // Antrenör ID'sini al
+                int coachID = currentUser.CoachId.Value;
+
+                // Antrenör bilgilerini veritabanından al
+                using (Model1 dbModel = new Model1())
+                {
+                    Coach coach = dbModel.Coaches.Find(coachID);
+
+                    // Antrenör bilgilerini ViewBag'e ekle
+                    ViewBag.CoachName = coach.CoachName;
+                    ViewBag.CoachID = coach.CoachId;
+
+                    // Görüntülenecek bir view döndür
+                    return View();
+                }
+            }
+            else
+            {
+                // Kullanıcı giriş yapmamışsa, login sayfasına yönlendir
+                return RedirectToAction("Login");
+            }
+        }
 
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SendMessageToCoachAction(int receiverID, string content)
+        {
+            if (Session["CurrentUser"] != null)
+            {
+                User currentUser = (User)Session["CurrentUser"];
 
+                using (MessageModel dbModel = new MessageModel())
+                {
+                    // Oluşturulan MessageModel sınıfını kullanarak yeni bir mesaj oluşturun
+                    Message newMessage = new Message
+                    {
+                        SenderID = currentUser.UserId,
+                        ReceiverID = receiverID,
+                        Content = content,
+                        SentAt = DateTime.Now
+                    };
+
+                    // Yeni mesajı veritabanına ekleyin
+                    dbModel.Messages.Add(newMessage);
+                    dbModel.SaveChanges();
+
+                    ViewBag.SuccessMessage = "Message sent successfully";
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
+
+            return RedirectToAction("Index");
+        }
+        
     }
 }

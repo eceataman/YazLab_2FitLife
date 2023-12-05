@@ -13,7 +13,7 @@ namespace WebApplication1.Models
         }
 
         public virtual DbSet<Message> Messages { get; set; }
-        public virtual DbSet<Progress> Progresses { get; set; }
+        //public virtual DbSet<Progress> Progresses { get; set; }
         public virtual DbSet<Coach> Coaches { get; set; }
         public virtual DbSet<ExerciseProgram> ExercisePrograms { get; set; }
         public virtual DbSet<NutritionPlan> NutritionPlans { get; set; }

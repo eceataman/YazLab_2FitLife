@@ -1,0 +1,31 @@
+﻿@model List<WebApplication1.Models.Message>
+
+@{
+    ViewBag.Title = "Received Messages";
+}
+
+<h2>Received Messages</h2>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table">
+        <tr>
+            <th>Sender</th>
+            <th>Content</th>
+            <th>Sent At</th>
+        </tr>
+
+        @foreach (var message in Model)
+        {
+            <tr>
+                <td>@message.MessageID</td>
+                <td>@message.Content</td>
+               
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <p>No received messages.</p>
+}

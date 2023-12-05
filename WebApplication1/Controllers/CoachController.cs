@@ -204,6 +204,70 @@ namespace WebApplication1.Controllers
 
             return View(newNutritionPlan);
         }
+        
+        
+        public ActionResult SendMessageToUser(int userId)
+        {
+            // Ensure the coach is logged in
+            if (Session["CurrentCoach"] == null)
+            {
+                return RedirectToAction("Login");
+            }
+
+            // Retrieve the current coach from the session
+            Coach currentCoach = (Coach)Session["CurrentCoach"];
+
+            using (Model1 dbModel = new Model1())
+            {
+                // Get the user information from the database
+                User user = dbModel.Users.Find(userId);
+
+                // Check if the user exists
+                if (user == null)
+                {
+                    ViewBag.ErrorMessage = "User not found.";
+                    return View();
+                }
+
+                // Pass user information to the view
+                ViewBag.UserName = user.UserName;
+                ViewBag.UserId = user.UserId;
+
+                if (Request.HttpMethod == "POST")
+                {
+                    // Handle the message sending logic here
+                    string messageContent = Request.Form["messageContent"];
+
+                    // You can save the message to the database or perform any other necessary action
+
+                    ViewBag.SuccessMessage = "Message sent successfully";
+                }
+
+                return View();
+            }
+        }
+
+        public ActionResult ViewReceivedMessages()
+        {
+            // Ensure the coach is logged in
+            if (Session["CurrentCoach"] == null)
+            {
+                return RedirectToAction("Login");
+            }
+
+            // Retrieve the current coach from the session
+            Coach currentCoach = (Coach)Session["CurrentCoach"];
+
+            using (Model1 dbModel = new Model1())
+            {
+                // Antrenörün kendisine gelen mesajları al
+                var receivedMessages = dbModel.Messages
+                    .Where(m => m.ReceiverID == currentCoach.CoachId)
+                    .ToList();
+
+                return View(receivedMessages);
+            }
+        }
 
 
 

@@ -13,8 +13,7 @@
     <style>
         body {
             font-family: fantasy;
-            /* background: url('../img/logo.jpg') no-repeat center center fixed;*/
-            background-size: cover;
+            background: url('../img/equipment.jpg') center/cover no-repeat;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -53,6 +52,10 @@
         }
 
         h3 {
+            color: linear-gradient(-135deg, #c850c0, #4158d0);
+        }
+
+        h2 {
             color: linear-gradient(-135deg, #c850c0, #4158d0);
         }
 
@@ -128,11 +131,16 @@
     </style>
 </head>
 <body>
+    <div style="text-align: center; color: white;">
+        <h2>HOŞ GELDİN @Model.UserName!</h2>
+    </div>
 
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <a href="@Url.Action("EditP", "User")">Profili Düzenle</a>
         <a href="@Url.Action("SaveProgress", "User")">İlerlemeyi Gir</a>
+        <a href="@Url.Action("ViewExerciseProgram", "User")">Egzersiz Programı</a>
+        <a href="@Url.Action("ViewNutritionPlan", "User")">Beslenme Programı</a>
         <a href="@Url.Action("SendMessageToCoach", "User")">Mesaj Gönder</a>
 
     </div>
@@ -142,7 +150,8 @@
         <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
     </div>
 
-    <script>function openNav() {
+    <script>
+        function openNav() {
             document.getElementById("mySidenav").style.width = "250px";
             document.getElementById("main").style.marginLeft = "250px";
             document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
@@ -163,9 +172,12 @@
             @if (!string.IsNullOrEmpty(Model.UserPhoto))
             {
 <img src="@Url.Content(Model.UserPhoto)" class="card-img" alt="User Photo"> }
-                else
-                {
+else
+{
 <p>No photo available</p>}
+
+
+
         </div>
         <div class="col-md-8">
             <div class="card-body">
@@ -183,7 +195,7 @@
                     <form action="@Url.Action("SaveTarget", "User")" method="post">
                         <label for="goal">Select Your Goal:</label>
                         <select name="goal" id="goal">
-                            <option value="Kilo Aldırma">Kilo Alma</option>
+                            <option value="Kilo Aldirma">Kilo Alma</option>
                             <option value="Kilo Verdirme">Kilo Verme</option>
                             <option value="Kilo Koruma">Kilo Koruma</option>
                             <option value="Kas Kazanma">Kas Kazanma</option>
@@ -191,9 +203,9 @@
                         <input type="submit" value="Hedef Kaydet" />
                     </form>
                 </div> }
-                            else
-                            {
-                <p>User not logged in. Please log in to view your profile.</p>}
+            else
+            {
+<p>User not logged in. Please log in to view your profile.</p>}
 
 
 </body>

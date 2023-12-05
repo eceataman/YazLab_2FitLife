@@ -1,0 +1,28 @@
+﻿@model WebApplication1.Models.User
+
+@{
+    ViewBag.Title = "Send Message to User";
+}
+
+<h2>Send Message to User: @ViewBag.UserName</h2>
+
+@if (ViewBag.ErrorMessage != null)
+{
+    <p style="color: red;">@ViewBag.ErrorMessage</p>
+}
+
+@if (ViewBag.SuccessMessage != null)
+{
+    <p style="color: green;">@ViewBag.SuccessMessage</p>
+}
+
+@using (Html.BeginForm())
+{
+    <div>
+        <label for="messageContent">Message:</label>
+        <textarea id="messageContent" name="messageContent" rows="4" cols="50" required></textarea>
+    </div>
+    <div>
+        <input type="submit" value="Send Message" />
+    </div>
+}
